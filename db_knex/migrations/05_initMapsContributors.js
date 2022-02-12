@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('points', table => {
+  return knex.schema.createTable('maps_contributors', table => {
     table
       .increments('id')
       .unsigned()

@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('points', table => {
+  return knex.schema.createTable('maps_points', table => {
     table
       .increments('id')
       .unsigned()
@@ -13,8 +13,8 @@ exports.up = function(knex) {
       .references('id').inTable('maps')
       .onDelete('CASCADE');
     table
-      .integer('user_id')
-      .references('id').inTable('users')
+      .integer('point_id')
+      .references('id').inTable('points')
       .onDelete('CASCADE');
   });
 };
