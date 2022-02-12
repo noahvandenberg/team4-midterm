@@ -49,6 +49,10 @@
     zoomOffset: -1,
     accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
     }).addTo(map);
+    // Renders an Example Point
+    var marker = L.marker([49.13068254312452, -123.14892282607158]).addTo(map);
+    // Renders an Example popup on point
+    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
   </script>
 </body>
 
