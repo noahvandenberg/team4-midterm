@@ -52,8 +52,8 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/maprender", (req,res) => {
-  res.render("maps")
+app.get("/maps", (req,res) => {
+  res.render("maprender")
 })
 
 app.listen(PORT, () => {
