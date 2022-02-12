@@ -3,16 +3,19 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('users', table => {
+  return knex.schema.createTable('points', table => {
     table
       .increments('id')
       .unsigned()
       .primary();
     table
-      .string("email")
-      .notNullable();
-      table.string('first_name').notNullable();
-      table.string('last_name').notNullable();
+      .integer('map_id')
+      .references('id').inTable('maps')
+      .onDelete('CASCADE');
+    table
+      .integer('point_id')
+      .references('id').inTable('points')
+      .onDelete('CASCADE');
   });
 };
 
@@ -21,5 +24,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('users');
+
 };

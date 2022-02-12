@@ -3,16 +3,17 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.schema.createTable('users', table => {
+  return knex.schema.createTable('maps', table => {
     table
       .increments('id')
       .unsigned()
       .primary();
     table
-      .string("email")
-      .notNullable();
-      table.string('first_name').notNullable();
-      table.string('last_name').notNullable();
+      .integer('creator_id')
+      .references('id').inTable('users')
+      .onDelete('CASCADE');
+    table
+      .timestamp('time_created').defaultTo(knex.fn.now());
   });
 };
 
@@ -21,5 +22,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('users');
+
 };
