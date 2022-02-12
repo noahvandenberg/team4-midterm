@@ -21,8 +21,8 @@
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
   crossorigin=""></script>
 
+  <!-- Sets map to fullscreen  -->
   <style>
-    body
     #map {
       height: 100vw;
       width: 100vw;
@@ -34,9 +34,13 @@
 </head>
 
 <body>
+  <!-- The Map Object -->
   <div id="map"></div>
+  <!-- Scripts for map and settings  -->
   <script>
+    // Sets Map and it's initial location
     var map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
+    // Grabs titles (background images) for mapbox
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
