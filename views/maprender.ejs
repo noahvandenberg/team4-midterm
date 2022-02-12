@@ -53,6 +53,15 @@
     var marker = L.marker([49.13068254312452, -123.14892282607158]).addTo(map);
     // Renders an Example popup on point
     marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+    // Renders an example popup on click with lat/long of where you clicked
+    var popup = L.popup();
+    function onMapClick(e) {
+      popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+    }
+    map.on('click', onMapClick);
   </script>
 </body>
 
