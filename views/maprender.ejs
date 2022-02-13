@@ -73,19 +73,14 @@
     }
     map.on('click', onMapClick);
 
-
+    // Render points from db
     const strLocations = '<%- JSON.stringify(locations) %>';
     let arrLocations = JSON.parse(strLocations);
-
-
     $(document).ready(function() {
 
-      L.marker([49.13068254312452, -123.12892282607158]).addTo(map);
       arrLocations.forEach(locationi => {
-
       L.marker([locationi.latitude, locationi.longitude]).addTo(map);
       console.log(locationi.latitude, locationi.longitude)
-
       });
 
     });

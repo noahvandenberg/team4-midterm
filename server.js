@@ -59,8 +59,7 @@ app.get("/maps", async (req,res) => {
       .query(`
       SELECT latitude, longitude
       FROM points
-      GROUP BY id
-      LIMIT 2;`)
+      GROUP BY id;`)
       .then((result) => {
         console.log(result.rows)
 
