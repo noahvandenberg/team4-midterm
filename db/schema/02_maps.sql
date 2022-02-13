@@ -1,6 +1,0 @@
-DROP TABLE IF EXISTS maps CASCADE;
-CREATE TABLE maps (
-  id SERIAL PRIMARY KEY,
-  -- CONSTRAINT owner_id FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
-  time_created TIMESTAMP
-);

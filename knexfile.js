@@ -21,11 +21,11 @@ module.exports = {
       },
 
       migrations : {
-        directory: __dirname + "/db_knex/migrations"
+        directory: __dirname + "/db/migrations"
       },
 
       seeds: {
-        directory: __dirname + "/db_knex/seeds"
+        directory: __dirname + "/db/seeds"
       }
 
   },
