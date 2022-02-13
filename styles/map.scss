@@ -1,0 +1,24 @@
+$map-width: 80vw;
+$map-height: 100vh;
+$sidebar-width: 20vw;
+
+main {
+  display: flex;
+}
+
+.sidebar {
+  display: flex;
+  width: $sidebar-width;
+
+  div {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+#map {
+  width: $map-width;
+  height: $map-height;
+}
