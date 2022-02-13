@@ -12,14 +12,14 @@ const createFakePoint = () => {
     title: faker.lorem.words(2),
     description: faker.lorem.words(20),
     image_url: faker.image.city(),
-    latitude: faker.address.latitude(45,55),
-    longitude: faker.address.latitude(115,125),
+    latitude: faker.address.latitude(49,50,14),
+    longitude: faker.address.latitude(-123,-124,14),
   };
 }
 
 exports.seed = async function(knex) {
   const fakePoints = [];
-  const desiredFakePoints = 1000;
+  const desiredFakePoints = 10;
   for (let i = 0; i < desiredFakePoints; i++) {
     fakePoints.push(createFakePoint());
   }
