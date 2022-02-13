@@ -52,8 +52,30 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/maps", (req,res) => {
-  res.render("maprender")
+app.get("/maps", async (req,res) => {
+
+  const getUserCount = function() {
+    return db
+      .query(`
+      SELECT latitude, longitude
+      FROM points
+      GROUP BY id
+      LIMIT 2;`)
+      .then((result) => {
+        console.log(result.rows)
+
+        const templateVars = {
+          locations: result.rows,
+        }
+
+        res.render("maprender", templateVars)
+
+      })
+      .catch((err) => {
+        console.log(err.message);
+    });
+  }
+  getUserCount();
 })
 
 app.listen(PORT, () => {

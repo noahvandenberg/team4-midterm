@@ -7,10 +7,10 @@
   <!-- <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" /> -->
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script> -->
+  <script type="text/javascript" src="/scripts/app.js"></script>
 
 
   <!-- Leaflet -->
@@ -38,8 +38,10 @@
   <div id="map"></div>
   <!-- Scripts for map and settings  -->
   <script>
+
     // Sets Map and it's initial location
     var map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
+
     // Grabs titles (background images) for mapbox
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -49,20 +51,50 @@
     zoomOffset: -1,
     accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
     }).addTo(map);
+
     // Renders an Example Point
     var marker = L.marker([49.13068254312452, -123.14892282607158]).addTo(map);
+    var marker1 = L.marker([48.13068254312452, -122.14892282607158]).addTo(map);
+
     // Renders an Example popup on point
     marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-    // Renders an example popup on click with lat/long of where you clicked
-    var popup = L.popup();
+
+    // Renders an example popup/point on click with lat/long of where you clicked
+    // var popup = L.popup();
     function onMapClick(e) {
-      popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
+      //Add Popup
+      // popup
+      //   .setLatLng(e.latlng)
+      //   .setContent("You clicked the map at " + e.latlng.toString())
+      //   .openOn(map);
+
+      //Add Point
+      L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
     }
     map.on('click', onMapClick);
+
+
+    const strLocations = '<%- JSON.stringify(locations) %>';
+    let arrLocations = JSON.parse(strLocations);
+
+
+    $(document).ready(function() {
+
+      L.marker([49.13068254312452, -123.12892282607158]).addTo(map);
+      arrLocations.forEach(locationi => {
+
+      L.marker([locationi.latitude, locationi.longitude]).addTo(map);
+      console.log(locationi.latitude, locationi.longitude)
+
+      });
+
+    });
+
+
+    // console.log('LAYER', L)
+    // console.log('LAYER', map)
   </script>
+
 </body>
 
-</html>
+</html>a
