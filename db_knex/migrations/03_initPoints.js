@@ -21,9 +21,9 @@ exports.up = function(knex) {
     table
       .string('image_url');
     table
-      .integer('latitude');
+      .float('latitude');
     table
-      .integer('longitude');
+      .float('longitude');
   });
 };
 
