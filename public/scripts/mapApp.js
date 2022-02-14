@@ -18,8 +18,7 @@ $(document).ready(function() {
 
   // Handler to add a new map to page
   // Currently no db implementation
-  // Will accept a json with map data to draw the map from
-  $('.add-map').on("click", function(map) {
+  $('.add-map').on("click", function() {
     console.log(this);
     // Create button element for new map
     const newMapInput = $('<input>').attr('type', 'button');
@@ -33,8 +32,14 @@ $(document).ready(function() {
     $(this).parent().append(newMapInput);
 
     // render the newly created map
-    // not implemented uet
+    $('#map').remove();
+    const $map = $('<section>').attr('id', 'map');
+    $('main').append($map);
     renderMap();
   })
+
+  // Handler to select existing map and render it
+  // currently no db implementation
+
 
 });
