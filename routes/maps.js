@@ -10,7 +10,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
-  // Get a list of all maps irrespective of user
+  /************ Get a list of all maps irrespective of user ***********/
   router.get("/", (req, res) => {
     let query = `SELECT * FROM maps`;
     console.log(query);
@@ -26,7 +26,7 @@ module.exports = (db) => {
       });
   });
 
-  // Get a list of a users maps
+  /************* Get a list of a users maps ***************************/
   router.get('/:id', (req, res) => {
     let query = 'SELECT * FROM maps WHERE creator_id = $1;';
     db.query(query, [req.params.id])
@@ -40,5 +40,35 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  /********************* Edit a user's map ****************************/
+
+
+  /************************** Add a map *******************************/
+  router.post('/', (req, res) => {
+    let query = 'INSERT INTO maps (creator_id, time_created) VALUES ($1, $2) RETURNING *;';
+    const values = [req.body.creator_id, Date.now()];
+    db.query(query, values)
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  /**************************Delete a map ****************************8*/
+  router.delete('/:id', (req, res) => {
+    db.query('DELETE FROM maps where id = $1 RETURNING *;', [req.body.id])
+      .then(data => console.log(data))
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+  
   return router;
 };

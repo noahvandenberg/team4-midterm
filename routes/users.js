@@ -9,7 +9,8 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  // Browse all of the users
+
+  /*********************** Browse all of the users **********************/
   router.get("/", (req, res) => {
     db.query(`SELECT * FROM users;`)
       .then(data => {
@@ -23,7 +24,7 @@ module.exports = (db) => {
       });
   });
 
-  // Read the details of a specific user
+  /***************** Read the details of a specific user *****************/
   router.get("/:id", (req, res) => {
     db.query('SELECT * FROM users WHERE id = $1', [req.params.id])
       .then(data => {
@@ -37,7 +38,7 @@ module.exports = (db) => {
       });
   });
 
-  // Edit a user
+  /*************************** Edit a user *****************************/
   router.put('/:id', (req, res) => {
     let query = 'UPDATE users SET ';
     let values = Object.values(req.body);
@@ -63,10 +64,10 @@ module.exports = (db) => {
         res
           .status(500)
           .json({ error: err.message });
-      })
+      });
   });
 
-  // Add a user
+  /****************************** Add a user ******************************/
   router.post('/', (req, res) => {
     let query = 'INSERT INTO users (first_name, last_name, email) VALUES ($1, $2, $3);';
     const values = Object.values(req.body);
@@ -81,7 +82,7 @@ module.exports = (db) => {
       });
   });
 
-  // Delete a user
+  /*************************** Delete a user ***************************/
   router.delete('/:id', (req, res) => {
     db.query('DELETE FROM users where id = $1 RETURNING (first_name);', [req.body.id])
       .then(data => console.log(data));
