@@ -8,7 +8,7 @@
 
 const createFakePoint = () => {
   return {
-    creator_id: Math.floor(Math.random() * 10) + 1,
+    creator_id: Math.floor(Math.random() * 50) + 1,
     title: faker.lorem.words(2),
     description: faker.lorem.words(20),
     image_url: faker.image.city(),
@@ -19,7 +19,7 @@ const createFakePoint = () => {
 
 exports.seed = async function(knex) {
   const fakePoints = [];
-  const desiredFakePoints = 10;
+  const desiredFakePoints = 2500;
   for (let i = 0; i < desiredFakePoints; i++) {
     fakePoints.push(createFakePoint());
   }
