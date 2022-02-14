@@ -1,52 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>Add 3D terrain to a map</title>
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
+  <title>Home Page</title>
+
+  <!-- <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" /> -->
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
+
+  <!-- OSM Buildings -->
+  <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
+
+  <!-- Sets map to fullscreen  -->
+  <style>
+    #map {
+      height: 100vw;
+      width: 100vw;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+  </style>
 </head>
+
 <body>
-<div id="map"></div>
+  <!-- The Map Object -->
+  <div id="map"></div>
+  <!-- Scripts for map and settings  -->
+  <script>
 
-<script>
-	mapboxgl.accessToken = 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ';
-const map = new mapboxgl.Map({
-container: 'map',
-zoom: 13.1,
-center: [-114.34411, 32.6141],
-pitch: 85,
-bearing: 80,
-style: 'mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y'
-});
+    // Sets Map and it's initial location
+    var map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
 
-map.on('load', () => {
-map.addSource('mapbox-dem', {
-'type': 'raster-dem',
-'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-'tileSize': 512,
-'maxzoom': 14
-});
-// add the DEM source as a terrain layer with exaggerated height
-map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+    // Grabs titles (background images) for mapbox
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    minZoom: 5,
+    maxZoom: 18,
+    zoom: 10,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
+    }).addTo(map);
 
-// add a sky layer that will show when the map is highly pitched
-map.addLayer({
-'id': 'sky',
-'type': 'sky',
-'paint': {
-'sky-type': 'atmosphere',
-'sky-atmosphere-sun': [0.0, 0.0],
-'sky-atmosphere-sun-intensity': 15
-}
-});
-});
-</script>
+    // Renders Buildings
+    const osmb = new OSMBuildings(map).load();
+
+    // Renders an Example Point
+    var marker = L.marker([49.13068254312452, -123.14892282607158]).addTo(map);
+    var marker1 = L.marker([48.13068254312452, -122.14892282607158]).addTo(map);
+
+    // Renders an Example popup on point
+    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+    // Renders an example popup/point on click with lat/long of where you clicked
+    // var popup = L.popup();
+    function onMapClick(e) {
+      //Add Popup
+      // popup
+      //   .setLatLng(e.latlng)
+      //   .setContent("You clicked the map at " + e.latlng.toString())
+      //   .openOn(map);
+
+      //Add Point
+      L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+    }
+    map.on('click', onMapClick);
+
+    // Render points from db
+    const strLocations = '<%- JSON.stringify(locations) %>';
+    let arrLocations = JSON.parse(strLocations);
+
+    $(document).ready(function() {
+
+      arrLocations.forEach(locationi => {
+      L.marker([locationi.latitude, locationi.longitude]).addTo(map);
+      console.log(locationi.latitude, locationi.longitude)
+      });
+
+    });
+
+
+    // console.log('LAYER', L)
+    // console.log('LAYER', map)
+  </script>
 
 </body>
-</html>
+
+</html>a
+
