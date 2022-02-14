@@ -9,12 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const methodOverride = require('method-override');
 const cookieSession = require('cookie-session');
-
-// PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
+const db = require('./db/db');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.

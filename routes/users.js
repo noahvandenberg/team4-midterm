@@ -7,14 +7,14 @@
 
 const express = require('express');
 const router  = express.Router();
+const { findUser, addUser, deleteUser, allUsers, editUser } = require('../db/user-queries.js');
 
 module.exports = (db) => {
 
   /*********************** Browse all of the users **********************/
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
+    allUsers()
+      .then(users => {
         res.json({ users });
       })
       .catch(err => {
@@ -26,9 +26,9 @@ module.exports = (db) => {
 
   /***************** Read the details of a specific user *****************/
   router.get("/:id", (req, res) => {
-    db.query('SELECT * FROM users WHERE id = $1', [req.params.id])
+    findUser('id', req.params.id)
       .then(data => {
-        const user = data.rows[0];
+        const user = data;
         res.json({ user });
       })
       .catch(err => {
@@ -40,52 +40,41 @@ module.exports = (db) => {
 
   /*************************** Edit a user *****************************/
   router.put('/:id', (req, res) => {
-    let query = 'UPDATE users SET ';
-    let values = Object.values(req.body);
-    switch (values.shift()) {
-    case 'email':
-      query += 'email';
-      break;
-    case 'first_name':
-      query += 'first_name';
-      break;
-    case 'last_name':
-      query += 'last_name';
-      break;
-    }
-    query += ` = $1 WHERE id = $2 RETURNING *;`;
-    console.log(values);
-    console.log(query);
-    db.query(query, values)
-      .then(data => {
-        console.log(data);
-      })
+    findUser('id', req.body.id)
+      .then(user => editUser(user, req.body))
       .catch(err => {
         res
           .status(500)
-          .json({ error: err.message });
+          .json({error: err.message });
       });
   });
 
   /****************************** Add a user ******************************/
   router.post('/', (req, res) => {
-    let query = 'INSERT INTO users (first_name, last_name, email) VALUES ($1, $2, $3);';
-    const values = Object.values(req.body);
-    db.query(query, values)
-      .then(data => {
-        console.log(data);
+    findUser('email',req.body.email)
+      .then((user) => {
+        console.log(user);
+        if (!user) addUser(req.body);
+        else console.log('User already exists');
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+      .catch((err, user) => {
+
+        // res
+          // .status(500)
+          // .json({error: err.message});
+        console.log(req.body.email);
       });
   });
 
   /*************************** Delete a user ***************************/
-  router.delete('/:id', (req, res) => {
-    db.query('DELETE FROM users where id = $1 RETURNING (first_name);', [req.body.id])
-      .then(data => console.log(data));
+  router.delete('/:param', (req, res) => {
+    findUser(req.body.search, req.body.search_value)
+      .then(data => deleteUser(data))
+      .catch(err => {
+        res
+          .status(500)
+          .json({error: err.message });
+      });
   });
 
   return router;
