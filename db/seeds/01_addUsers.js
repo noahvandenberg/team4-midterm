@@ -3,6 +3,8 @@
  * @returns { Promise<void> }
  */
 
+// Password is being stored intentionally as text for development purposes and will be converted to bcyrpt hash
+
  const { faker } = require('@faker-js/faker');
  faker.setLocale('nl');
 
@@ -13,7 +15,8 @@ const createFakeUser = () => {
   return {
     email: email,
     first_name: first_name,
-    last_name: last_name
+    last_name: last_name,
+    password: 'password'
   };
 }
 
