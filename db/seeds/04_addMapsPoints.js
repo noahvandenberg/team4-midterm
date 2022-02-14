@@ -7,14 +7,14 @@
 
 const createFakeJoin = () => {
   return {
-    point_id: Math.floor(Math.random() * 10) + 1,
-    map_id: Math.floor(Math.random() * 100) + 1,
+    point_id: Math.floor(Math.random() * 2500) + 1,
+    map_id: Math.floor(Math.random() * 250) + 1,
   };
 }
 
 exports.seed = async function(knex) {
   const fakeJoin = [];
-  const desiredFakePoints = 1000;
+  const desiredFakePoints = 2500;
   for (let i = 0; i < desiredFakePoints; i++) {
     fakeJoin.push(createFakeJoin());
   }

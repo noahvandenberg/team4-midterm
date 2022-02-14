@@ -7,8 +7,8 @@
 
 const createFakeJoin = () => {
   return {
-    user_id: Math.floor(Math.random() * 10) + 1,
-    map_id: Math.floor(Math.random() * 100) + 1,
+    user_id: Math.floor(Math.random() * 50) + 1,
+    map_id: Math.floor(Math.random() * 250) + 1,
   };
 }
 

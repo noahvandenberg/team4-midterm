@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
-    "db:reset": "knex migrate:latest --env development && knex seed:run --env development"
+    "db:reset": "knex migrate:rollback --all && knex migrate:latest --env development && knex seed:run --env development"
   },
   "author": "Lighthouse Labs",
   "license": "ISC",

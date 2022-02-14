@@ -7,13 +7,13 @@
 
 const createFakeMap = () => {
  return {
-  creator_id: Math.floor(Math.random() * 10) + 1,
+  creator_id: Math.floor(Math.random() * 50) + 1,
  }
 };
 
 exports.seed = async function(knex) {
   const fakeMaps = [];
-  const desiredFakeMap = 100;
+  const desiredFakeMap = 250;
   for (let i = 0; i < desiredFakeMap; i++) {
     fakeMaps.push(createFakeMap());
   }
