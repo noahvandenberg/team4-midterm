@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+  // Draw the map to the screen
   const renderMap = function() {
     // Sets Map and it's initial location
     const map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
@@ -15,5 +16,25 @@ $(document).ready(function() {
     }).addTo(map);
   };
 
-  renderMap();
+  // Handler to add a new map to page
+  // Currently no db implementation
+  // Will accept a json with map data to draw the map from
+  $('.add-map').on("click", function(map) {
+    console.log(this);
+    // Create button element for new map
+    const newMapInput = $('<input>').attr('type', 'button');
+
+    // Add map id and map name to button attribute name based on map object
+    // not implemented yet
+    newMapInput.attr('name', 'map-id');
+    newMapInput.attr('value', 'A new map');
+
+    // insert map input to html page
+    $(this).parent().append(newMapInput);
+
+    // render the newly created map
+    // not implemented uet
+    renderMap();
+  })
+
 });
