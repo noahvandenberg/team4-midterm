@@ -8,6 +8,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const methodOverride = require('method-override');
+const cookieSession = require('cookie-session');
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -22,6 +23,10 @@ app.use(morgan("dev"));
 app.use(methodOverride('_method'));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1']
+}));
 
 app.use(
   "/styles",
