@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   const renderMap = function() {
     // Sets Map and it's initial location
-    var map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
+    const map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
 
     // Grabs titles (background images) for mapbox
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
