@@ -38,9 +38,6 @@ module.exports = (db) => {
       });
   });
 
-  /********************* Edit a user's map ****************************/
-
-
   /************************** Add a map *******************************/
   router.post('/', (req, res) => {
     addUserMap(req.body.creator_id)

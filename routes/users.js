@@ -65,7 +65,7 @@ module.exports = (db) => {
   });
 
   /**************************** Logout a user **************************/
-  router.post('/logout', (req, res) => {
+  router.post('/logout', (req) => {
     req.session.userId = null;
   });
 
