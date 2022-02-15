@@ -1,8 +1,5 @@
 $(document).ready(function() {
 
-  // The map object
-  let map;
-
   // Draw the map to the screen
   // Currently only draws the same map every time
   // Will take an array parameter with coordinates to set initial view
@@ -21,8 +18,27 @@ $(document).ready(function() {
       accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
     }).addTo(map);
 
-    return map;
+    // diable map zoom on double click
+    map.doubleClickZoom.disable();
+
+    // handler to add marker to map as well as corresponding point to sidebar list
+    map.on("dblclick", function(pointer) {
+
+      console.log(pointer);
+
+      // Add point to map
+      const marker = L.marker(pointer.latlng).addTo(map);
+      console.log(marker);
+      // database query to create new point goes here
+
+      // Add corresponding point element to sidebar list
+      const $newPoint = $('<input>').attr('type', 'button')
+      $newPoint.attr('name', Math.floor(Math.random() * 1000));
+      $newPoint.val("a new point");
+      $('.points-list').append($newPoint);
+    });
   };
+
 
   // Handler to add a new map to page
   // Currently no db implementation
@@ -44,8 +60,10 @@ $(document).ready(function() {
     $('#map').remove();
     const $map = $('<section>').attr('id', 'map');
     $('main').append($map);
-    map = renderMap();
+    renderMap();
+    console.log(map);
   });
+
 
   // Handler to select existing map and render it
   // currently no db implementation, just rerenders the map when clicked
@@ -58,7 +76,7 @@ $(document).ready(function() {
     $('#map').remove();
     const $map = $('<section>').attr('id', 'map');
     $('main').append($map);
-    map = renderMap();
+    renderMap();
   });
 
 });
