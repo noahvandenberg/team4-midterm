@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('../db');
 
 const allUsers = function() {
   const strQuery = `SELECT * FROM users;`;
@@ -72,3 +72,9 @@ const deleteUser = function(user) {
     .catch(err => console.log('Error:', err.message));
 };
 exports.deleteUser = deleteUser;
+
+module.exports = {
+  exampleUserQuery: () => {
+    return true
+  }
+}
