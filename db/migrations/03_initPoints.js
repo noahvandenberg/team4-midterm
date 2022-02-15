@@ -13,6 +13,10 @@ exports.up = function(knex) {
       .references('id').inTable('users')
       .onDelete('CASCADE');
     table
+      .integer('map_id')
+      .references('id').inTable('maps')
+      .onDelete('CASCADE');
+    table
       .timestamp('time_created').defaultTo(knex.fn.now());
     table
       .string('title');

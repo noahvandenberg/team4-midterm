@@ -8,6 +8,8 @@
 const createFakeMap = () => {
  return {
   creator_id: Math.floor(Math.random() * 50) + 1,
+  title: faker.lorem.words(2),
+  description: faker.lorem.words(20),
  }
 };
 
