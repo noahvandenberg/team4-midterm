@@ -12,7 +12,8 @@ let matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^
 matrix = matrix.split("");
 
 let fontSize = 10;
-let columns = canvas.width / fontSize; //number of columns for the rain
+//number of columns for the rain
+let columns = canvas.width / fontSize;
 //an array of drops - one per column
 let drops = [];
 //x below is the x coordinate
@@ -22,11 +23,12 @@ for (let x = 0; x < columns; x++)
 
 //drawing the characters
 const draw = function() {
-//Black BG for the canvas
-  //translucent BG to show trail
+  //Black BG for the canvas
   canvasContext.fillStyle = "rgba(0, 0, 0, 0.04)";
+  //translucent BG to show trail
   canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-  canvasContext.fillStyle = "#f4427d";//green text
+  //blue text
+  canvasContext.fillStyle = "blue";
   canvasContext.font = fontSize + "px arial";
   //looping over drops
   for (let i = 0; i < drops.length; i++) {
