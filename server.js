@@ -23,7 +23,7 @@ app.use(morgan("dev"));
 app.use(methodOverride('_method'));
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1']
+  keys: [process.env.COOKIE_SECRET_KEY]
 }));
 app.use(
   "/styles",
@@ -42,8 +42,6 @@ const userRouter = express.Router();
 userRoutes(userRouter, db);
 app.use('/', userRouter);
 app.use(express.static(path.join(__dirname, './public')));
-
-
 
 
 
