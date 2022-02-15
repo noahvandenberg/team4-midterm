@@ -7,16 +7,14 @@
 
 const express = require('express');
 const router  = express.Router();
+const { allPoints, mapPoints, findPoint, editPoint, newPoint, deletePoint } = require('../db/point-queries.js');
 
 module.exports = (db) => {
 
   /********************** Browse a list of all points ***********************/
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM points`;
-    console.log(query);
-    db.query(query)
-      .then(data => {
-        const points = data.rows;
+    allPoints()
+      .then(points => {
         res.json({ points });
       })
       .catch(err => {
@@ -28,10 +26,8 @@ module.exports = (db) => {
 
   /********************* Get a list of points for a map ***********************/
   router.get("/:id", (req, res) => {
-    let query = `SELECT * FROM points WHERE id = $1;`;
-    db.query(query, [req.params.id])
-      .then(data => {
-        const points = data.rows;
+    mapPoints(req.params.id)
+      .then(points => {
         res.json({ points });
       })
       .catch(err => {
@@ -42,15 +38,21 @@ module.exports = (db) => {
   });
 
   /************************** Edit a point ************************************/
-
+  router.put('/:id', (req, res) => {
+    findPoint('id', req.body.id)
+      .then(user => editPoint(user, req.body))
+      .catch(err => {
+        res
+          .status(500)
+          .json({error: err.message });
+      });
+  });
 
   /************************ Add a point to a map ******************************/
   router.post('/', (req, res) => {
-    let query = 'INSERT INTO points (creator_id, title, destination, image_url, latitude, longitude, time_created) VALUES ($1, $2) RETURNING *;';
-    const values = [...req.body, Date.now()];
-    db.query(query, values)
-      .then(data => {
-        console.log(data);
+    newPoint(req.body)
+      .then(point => {
+        res.json({ point });
       })
       .catch(err => {
         res
@@ -61,7 +63,7 @@ module.exports = (db) => {
 
   /************************ Delete a point ************************************/
   router.delete('/:id', (req, res) => {
-    db.query('DELETE FROM points WHERE id = $1 RETURNING *;', [req.body.id])
+    deletePoint(req.body.id)
       .then(data => console.log(data))
       .catch(err => {
         res

@@ -7,16 +7,14 @@
 
 const express = require('express');
 const router  = express.Router();
+const { allMaps, findUserMaps, addUserMap, deleteUserMap } = require('../db/map-queries.js');
 
 module.exports = (db) => {
 
   /************ Get a list of all maps irrespective of user ***********/
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM maps`;
-    console.log(query);
-    db.query(query)
-      .then(data => {
-        const maps = data.rows;
+    allMaps()
+      .then(maps => {
         res.json({ maps });
       })
       .catch(err => {
@@ -26,13 +24,12 @@ module.exports = (db) => {
       });
   });
 
-  /************* Get a list of a users maps ***************************/
+
+  /************* Get a list of a logged in users maps ******************/
   router.get('/:id', (req, res) => {
-    let query = 'SELECT * FROM maps WHERE creator_id = $1;';
-    db.query(query, [req.params.id])
-      .then(data => {
-        const map = data.rows[0];
-        res.json({ map });
+    findUserMaps(req.params.id)
+      .then(maps => {
+        res.json({ maps });
       })
       .catch(err => {
         res
@@ -41,16 +38,11 @@ module.exports = (db) => {
       });
   });
 
-  /********************* Edit a user's map ****************************/
-
-
   /************************** Add a map *******************************/
   router.post('/', (req, res) => {
-    let query = 'INSERT INTO maps (creator_id, time_created) VALUES ($1, $2) RETURNING *;';
-    const values = [req.body.creator_id, Date.now()];
-    db.query(query, values)
-      .then(data => {
-        console.log(data);
+    addUserMap(req.body.creator_id)
+      .then(map => {
+        res.json({ map });
       })
       .catch(err => {
         res
@@ -61,7 +53,7 @@ module.exports = (db) => {
 
   /**************************Delete a map ****************************8*/
   router.delete('/:id', (req, res) => {
-    db.query('DELETE FROM maps where id = $1 RETURNING *;', [req.body.id])
+    deleteUserMap(req.body.id)
       .then(data => console.log(data))
       .catch(err => {
         res
@@ -69,6 +61,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  
+
   return router;
 };
