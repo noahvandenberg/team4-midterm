@@ -38,8 +38,6 @@ const editUser = function(user, body) {
     WHERE id = $2
     RETURNING *;`;
 
-  console.log(values);
-  console.log(strQuery);
   return db
     .query(strQuery, values)
     .then(data => console.log(data))
