@@ -42,7 +42,6 @@ $(document).ready(function() {
     // render the newly created map
     // implementation will be moved to a promise after database call returns
     $('#map').remove();
-    $('.')
     const $map = $('<section>').attr('id', 'map');
     $('main').append($map);
     map = renderMap();
@@ -61,12 +60,5 @@ $(document).ready(function() {
     $('main').append($map);
     map = renderMap();
   });
-
-  // Leaflet Handler to add map point to point list
-  L.PointHandler = L.Handler.extend({
-    addHooks: function() {
-
-    }
-  })
 
 });
