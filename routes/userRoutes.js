@@ -1,6 +1,6 @@
-const { allPoints } = require('../db/queries/point-queries')
-const { allUsers } = require('../db/queries/user-queries')
-const { allMaps } = require('../db/queries/map-queries')
+const { allPoints, mapPointsByUser, mapPoints, findPoint } = require('../db/queries/point-queries')
+const { allUsers, findUser } = require('../db/queries/user-queries')
+const { allMaps, findUserMaps} = require('../db/queries/map-queries')
 
 
 module.exports = (router, db) => {

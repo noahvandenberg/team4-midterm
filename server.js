@@ -37,21 +37,27 @@ app.use(
 
 
 // // User Routes
-const userRoutes = require('./routes/userRoutes');
 const userRouter = express.Router();
+const userRoutes = require('./routes/userRoutes');
 userRoutes(userRouter, db);
 app.use('/', userRouter);
 app.use(express.static(path.join(__dirname, './public')));
 
 
-
 // API Routes
-// const usersAPI = require("./routes/api/users");
-// const mapsAPI = require("./routes/api/maps");
-// const pointsAPI = require("./routes/api/points");
-// app.use("/api/users", usersAPI(db));
-// app.use("/api/maps", mapsAPI(db));
-// app.use("/api/points", pointsAPI(db));
+const apiRouter = express.Router();
+
+const mapAPIRoutes = require('./routes/api/maps');
+const pointAPIRoutes = require('./routes/api/points');
+const userAPIRoutes = require('./routes/api/users');
+
+mapAPIRoutes(userRouter, db);
+pointAPIRoutes(userRouter, db);
+userAPIRoutes(userRouter, db);
+
+app.use('/api/map', apiRouter);
+app.use('/api/point', apiRouter);
+app.use('/api/user', apiRouter);
 
 
 

@@ -4,12 +4,9 @@
  *   these routes are mounted onto /widgets
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-
-const express = require('express');
-const router  = express.Router();
 const { allMaps, findUserMaps, addUserMap, deleteUserMap } = require('../../db/queries/map-queries');
 
-module.exports = (db) => {
+module.exports = (router, db) => {
 
   /************ Get a list of all maps irrespective of user ***********/
   router.get("/", (req, res) => {

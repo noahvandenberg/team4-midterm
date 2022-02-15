@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { findUser, addUser, deleteUser, allUsers, editUser } = require('../../db/user-queries.js');
+const { findUser, addUser, deleteUser, allUsers, editUser } = require('../../db/queries/user-queries');
 
 module.exports = (db) => {
 
