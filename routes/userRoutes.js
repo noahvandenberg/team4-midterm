@@ -11,10 +11,27 @@ module.exports = (router, db) => {
   });
 
   router.get("/maps", (req,res) => {
-    const templateVars = {
+    const getUserCount = function() {
+      return db
+        .query(`
+        SELECT latitude, longitude
+        FROM points
+        GROUP BY id;`)
+        .then((result) => {
+          console.log(result.rows)
 
-    };
-    res.render("../views/maprender.ejs", templateVars);
+          const templateVars = {
+            locations: result.rows,
+          }
+
+          res.render("../views/maprender.ejs", templateVars);
+
+        })
+        .catch((err) => {
+          console.log(err.message);
+      });
+    }
+    getUserCount();
   });
 
   router.get("/maps:map_id", (req,res) => {
