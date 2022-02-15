@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
   // Draw the map to the screen
-  const renderMap = function() {
+  // Currently only draws the same map every time
+  // Will take an array parameter with coordinates to set initial view
+  //    first element will be latitude and second will be longitude
+  const renderMap = function(arrCoords) {
     // Sets Map and it's initial location
     const map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
 
@@ -32,14 +35,25 @@ $(document).ready(function() {
     $(this).parent().append(newMapInput);
 
     // render the newly created map
+    // implementation will be moved to a promise after database call returns
     $('#map').remove();
     const $map = $('<section>').attr('id', 'map');
     $('main').append($map);
     renderMap();
-  })
+  });
 
   // Handler to select existing map and render it
-  // currently no db implementation
+  // currently no db implementation, just rerenders the map when clicked
+  // will query the database using map id stored in "name" attribute of input
+  $('div.maps-list').on("click", "input[name]", function() {
 
+    // this is the map value used to query the database
+    console.log($(this).attr('name'));
+    // remove the current map and rerender it
+    $('#map').remove();
+    const $map = $('<section>').attr('id', 'map');
+    $('main').append($map);
+    renderMap();
+  });
 
 });
