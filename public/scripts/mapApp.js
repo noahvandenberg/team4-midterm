@@ -1,5 +1,7 @@
 $(document).ready(function() {
-  renderMap();
+
+  // TODO: ajax call to get one of the logged in users' maps and render it
+
 });
 
 // Draw the map to the screen
