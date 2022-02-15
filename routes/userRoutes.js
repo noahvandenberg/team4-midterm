@@ -10,28 +10,24 @@ module.exports = (router, db) => {
     res.render("../views/login");
   });
 
-  router.get("/maps", (req,res) => {
-    const getUserCount = function() {
-      return db
-        .query(`
-        SELECT latitude, longitude
-        FROM points
-        GROUP BY id;`)
-        .then((result) => {
-          console.log(result.rows)
+  router.get("/maps", async (req,res) => {
 
-          const templateVars = {
-            locations: result.rows,
-          }
+    // Should Be In Query File and Imported
+    const result = () => {
+      return db.query(`
+      SELECT latitude, longitude
+      FROM points
+      GROUP BY id;`)
+    };
 
-          res.render("../views/maprender.ejs", templateVars);
+    let dbResponse = await result();
 
-        })
-        .catch((err) => {
-          console.log(err.message);
-      });
-    }
-    getUserCount();
+    const templateVars = {
+      locations: dbResponse.rows,
+    };
+
+    res.render("../views/maprender.ejs", templateVars);
+
   });
 
   router.get("/maps:map_id", (req,res) => {
