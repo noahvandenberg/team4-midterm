@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { allMaps, findUserMaps, addUserMap, deleteUserMap } = require('../db/map-queries.js');
+const { allMaps, findUserMaps, addUserMap, deleteUserMap } = require('../../db/queries/map-queries');
 
 module.exports = (db) => {
 

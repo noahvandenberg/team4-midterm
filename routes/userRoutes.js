@@ -1,6 +1,7 @@
-const { exampleMapQuery } = require('../db/queries/map-queries')
-const { exampleUserQuery } = require('../db/queries/user-queries')
-const { examplePointQuery } = require('../db/queries/point-queries')
+const { allPoints } = require('../db/queries/point-queries')
+const { allUsers } = require('../db/queries/user-queries')
+const { allMaps } = require('../db/queries/map-queries')
+
 
 module.exports = (router, db) => {
 
@@ -14,19 +15,10 @@ module.exports = (router, db) => {
 
   router.get("/maps", async (req,res) => {
 
-    // Should Be In Query File and
-    const result = () => {
-      return db.query(`
-      SELECT latitude, longitude
-      FROM points
-      GROUP BY id;`)
-    };
-
-    const dbResponse = await result();
-    const dbRows = dbResponse.rows;
+    const dbResponse = await allPoints();
 
     const templateVars = {
-      locations: dbRows,
+      locations: dbResponse,
     };
 
     res.render("../views/maprender", templateVars);
