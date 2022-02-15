@@ -14,6 +14,10 @@ exports.up = function(knex) {
       .onDelete('CASCADE');
     table
       .timestamp('time_created').defaultTo(knex.fn.now());
+    table
+      .string('title');
+    table
+      .string('description');
   });
 };
 
