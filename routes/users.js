@@ -34,7 +34,7 @@ module.exports = (db) => {
       .catch(err => {
         res
           .status(500)
-          .json({error: err.message });
+          .json({ error: err.message });
       });
   });
 
@@ -49,6 +49,26 @@ module.exports = (db) => {
       });
   });
 
+  /************************** Login a user *****************************/
+  router.post('/login', (req, res) => {
+    console.log(req.body);
+    findUser('email', req.body.email)
+      .then(user => {
+        if (!user) {
+          res.send({error: "error"});
+          return;
+        }
+        req.session.userId = user.id;
+        console.log(req.session.userId);
+      })
+      .catch(err => res.send(err));
+  });
+
+  /**************************** Logout a user **************************/
+  router.post('/logout', (req) => {
+    req.session.userId = null;
+  });
+
   /****************************** Add a user ******************************/
   router.post('/', (req, res) => {
     findUser('email',req.body.email)
@@ -57,19 +77,17 @@ module.exports = (db) => {
         if (!user) addUser(req.body);
         else console.log('User already exists');
       })
-      .catch((err, user) => {
-
-        // res
-          // .status(500)
-          // .json({error: err.message});
-        console.log(req.body.email);
+      .catch((err) => {
+        res
+          .status(500)
+          .json({error: err.message});
       });
   });
 
   /*************************** Delete a user ***************************/
   router.delete('/:param', (req, res) => {
     findUser(req.body.search, req.body.search_value)
-      .then(data => deleteUser(data))
+      .then(user => deleteUser(user))
       .catch(err => {
         res
           .status(500)
