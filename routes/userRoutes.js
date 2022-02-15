@@ -1,6 +1,6 @@
 const {} = require('../db/queries/map_queries')
-const {} = require('../db/queries/map_queries')
-const {} = require('../db/queries/map_queries')
+const {} = require('../db/queries/user_queries')
+const {} = require('../db/queries/point_queries')
 
 module.exports = (router, db) => {
 
@@ -29,7 +29,7 @@ module.exports = (router, db) => {
       locations: dbRows,
     };
 
-    res.render("../views/maprender.ejs", templateVars);
+    res.render("../views/maprender", templateVars);
 
   });
 
