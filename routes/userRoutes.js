@@ -12,7 +12,7 @@ module.exports = (router, db) => {
 
   router.get("/maps", async (req,res) => {
 
-    // Should Be In Query File and Imported
+    // Should Be In Query File and
     const result = () => {
       return db.query(`
       SELECT latitude, longitude
@@ -20,10 +20,11 @@ module.exports = (router, db) => {
       GROUP BY id;`)
     };
 
-    let dbResponse = await result();
+    const dbResponse = await result();
+    const dbRows = dbResponse.rows;
 
     const templateVars = {
-      locations: dbResponse.rows,
+      locations: dbRows,
     };
 
     res.render("../views/maprender.ejs", templateVars);
