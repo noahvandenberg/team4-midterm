@@ -13,7 +13,7 @@ const createFakePoint = () => {
     description: faker.lorem.words(20),
     image_url: faker.image.city(),
     latitude: faker.address.latitude(49,50,14),
-    longitude: faker.address.latitude(-123,-124,14),
+    longitude: faker.address.longitude(-123,-124,14),
   };
 }
 
