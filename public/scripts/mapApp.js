@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+  // The map object
+  let map;
+
   // Draw the map to the screen
   // Currently only draws the same map every time
   // Will take an array parameter with coordinates to set initial view
@@ -17,6 +20,8 @@ $(document).ready(function() {
       zoomOffset: -1,
       accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
     }).addTo(map);
+
+    return map;
   };
 
   // Handler to add a new map to page
@@ -37,9 +42,10 @@ $(document).ready(function() {
     // render the newly created map
     // implementation will be moved to a promise after database call returns
     $('#map').remove();
+    $('.')
     const $map = $('<section>').attr('id', 'map');
     $('main').append($map);
-    renderMap();
+    map = renderMap();
   });
 
   // Handler to select existing map and render it
@@ -53,7 +59,14 @@ $(document).ready(function() {
     $('#map').remove();
     const $map = $('<section>').attr('id', 'map');
     $('main').append($map);
-    renderMap();
+    map = renderMap();
   });
+
+  // Leaflet Handler to add map point to point list
+  L.PointHandler = L.Handler.extend({
+    addHooks: function() {
+
+    }
+  })
 
 });
