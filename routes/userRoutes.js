@@ -1,4 +1,6 @@
-
+const {} = require('../db/queries/map_queries')
+const {} = require('../db/queries/map_queries')
+const {} = require('../db/queries/map_queries')
 
 module.exports = (router, db) => {
 
