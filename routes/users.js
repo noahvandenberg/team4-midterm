@@ -51,7 +51,7 @@ module.exports = (db) => {
 
   /************************** Login a user *****************************/
   router.post('/login', (req, res) => {
-    console.log(req.body);
+    console.log('logging in', req.body);
     findUser('email', req.body.email)
       .then(user => {
         if (!user) {
