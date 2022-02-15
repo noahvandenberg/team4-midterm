@@ -12,8 +12,8 @@ const createFakePoint = () => {
     title: faker.lorem.words(2),
     description: faker.lorem.words(20),
     image_url: faker.image.city(),
-    latitude: faker.address.latitude(49,50,14),
-    longitude: faker.address.longitude(-123,-124,14),
+    latitude: faker.address.latitude(49.006799, 49.377902, 14),
+    longitude: faker.address.longitude(-122.121277, -123.280334, 14),
   };
 }
 
