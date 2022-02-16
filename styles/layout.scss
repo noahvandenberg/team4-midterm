@@ -3,15 +3,23 @@
 /* The side navigation menu */
 .sidenav {
   height: 100%; /* 100% Full-height */
-  width: 10px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
-  left: 0;
   background-color: #72bcd4; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+#mySidenav {
+  width: 10px; /* 10 width - change this with JavaScript */
+  left: 0;
+}
+
+#myEditnav {
+  width: 0px; /* 0 width - change this with JavaScript */
+  right: 0;
 }
 
 /* The navigation menu links */
@@ -33,7 +41,14 @@
 .sidenav .closebtn {
   position: absolute;
   top: 0;
-  right: 25px;
   font-size: 36px;
   margin-left: 50px;
+}
+
+#mySidenav.closebtn {
+  right: 25px;
+}
+
+#myEditnav.closebtn {
+  left: 25px;
 }

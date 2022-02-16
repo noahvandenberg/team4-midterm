@@ -7,4 +7,10 @@ $(() => {
       $('#mySidenav').width('300px');
     } else $('#mySidenav').width('10px');
   });
+
+  $('#myEditnav').click(() => {
+    if ($('#myEditnav').width() === 0) {
+      $('#myEditnav').width('300px');
+    } else $('#myEditnav').width('10px');
+  });
 });
