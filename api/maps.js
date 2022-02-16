@@ -1,31 +1,30 @@
 const { allMaps, findMapsByUser, findMapById, updateMapTitle, updateMapDescription, createMap, deleteMap } = require('../db/queries/map-queries');
 const chalk = require('chalk');
-const e = require('express');
 
 module.exports = (router) => {
 
   // BROWSE
-  router.get('/', async (req, res) => {
+  router.get('/', async(req, res) => {
     try {
       const dbResponse = await allMaps();
-      res.json(dbResponse)
+      res.json(dbResponse);
     } catch (error) {
-      console.log(chalk.redBright('ERROR in maps.js @ GET \'/\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in maps.js @ GET \'/\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
 
-  router.get('/u/:id', async (req, res) => {
+  router.get('/u/:id', async(req, res) => {
     try {
       const dbResponse = await findMapsByUser(req.params.id);
       if (dbResponse.length > 0) {
-        res.json(dbResponse)
+        res.json(dbResponse);
       } else {
-        res.json(dbResponse)
-        throw 'User Does Not Exist'
+        res.json(dbResponse);
+        throw 'User Does Not Exist';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in maps.js @ GET \'/u/:id\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in maps.js @ GET \'/u/:id\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
@@ -33,17 +32,17 @@ module.exports = (router) => {
 
 
   // READ
-  router.get('/:id', async (req, res) => {
+  router.get('/:id', async(req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       if (dbResponse.length > 0) {
-        res.json(dbResponse)
+        res.json(dbResponse);
       } else {
-        res.json(dbResponse)
-        throw 'Map Does Not Exist'
+        res.json(dbResponse);
+        throw 'Map Does Not Exist';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in maps.js @ GET \'/i/:id\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in maps.js @ GET \'/i/:id\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
@@ -51,7 +50,7 @@ module.exports = (router) => {
 
 
   // // EDIT
-  router.put('/:id', async (req, res) => {
+  router.put('/:id', async(req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       // console.log(req.body)
@@ -66,7 +65,7 @@ module.exports = (router) => {
         res.json(updateResponse);
       } else {
         res.json(dbResponse);
-        throw 'Map Does Not Exist'
+        throw 'Map Does Not Exist';
       }
     } catch (error) {
       console.log(chalk.redBright('ERROR in maps.js @ PUT \'/:id\':', chalk.whiteBright(error)));
@@ -77,17 +76,17 @@ module.exports = (router) => {
 
 
   // ADD
-  router.post('/', async (req, res) => {
+  router.post('/', async(req, res) => {
     try {
       if (req.body.creator_id && req.body.title && req.body.description) {
         const dbResponse = await createMap(req.body.creator_id, req.body.title, req.body.description);
         res.json(dbResponse);
       } else {
         res.json();
-        throw 'Missing Required Parameter'
+        throw 'Missing Required Parameter';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in map.js @ POST \'/\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in map.js @ POST \'/\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
@@ -95,7 +94,7 @@ module.exports = (router) => {
 
 
   // DELETE
-  router.delete('/:id', async (req, res) => {
+  router.delete('/:id', async(req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       if (dbResponse.length > 0) {
@@ -106,7 +105,7 @@ module.exports = (router) => {
         throw 'Map Does Not Exist';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in maps.js @ DELETE \'/:id\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in maps.js @ DELETE \'/:id\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
