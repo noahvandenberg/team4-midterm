@@ -1,3 +1,5 @@
+const mapRender = require("../../routes/mapRender");
+
 $(document).ready(function() {
 
   addUserMaps();
@@ -63,9 +65,12 @@ const addUserMaps = function() {
     method: "GET",
     url: `/maps/${userId}`
   }).then((res) => {
-    console.log(res.maps);
+    // Add each man to the sidebar
     res.maps.forEach(map => {
       addMap(map);
     });
+
+    // render the user's first map in the database
+    mapRender(res.maps[0]);
   })
 };
