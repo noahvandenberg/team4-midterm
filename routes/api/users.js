@@ -1,39 +1,22 @@
-const { findUser, addUser, deleteUser, allUsers, editUser } = require('../../db/queries/user-queries');
+const { findUserById, addUser, deleteUser, allUsers, editUser } = require('../../db/queries/user-queries');
 
 module.exports = (router, db) => {
 
   /*********************** Browse all of the users **********************/
-  router.get("/", (req, res) => {
-    allUsers()
-      .then(users => {
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-
-
+  router.get("/", async (req, res) => {
+    const dbResponse = await allUsers();
+    res.json(dbResponse)
   });
 
   /***************** Read the details of a specific user *****************/
-  router.get("/:id", (req, res) => {
-    findUser('id', req.params.id)
-      .then(data => {
-        const user = data;
-        res.json({ user });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+  router.get("/:id", async (req, res) => {
+    const dbResponse = await findUserById(req.params.id);
+    res.json(dbResponse)
   });
 
   /*************************** Edit a user *****************************/
   router.put('/:id', (req, res) => {
-    findUser('id', req.body.id)
+    findUserById(req.body.id)
       .then(user => editUser(user, req.body))
       .catch(err => {
         res
