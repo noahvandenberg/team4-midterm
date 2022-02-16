@@ -60,6 +60,7 @@ module.exports = (db) => {
         }
         req.session.userId = user.id;
         console.log(req.session.userId);
+        res.render('navigation');
       })
       .catch(err => res.send(err));
   });
