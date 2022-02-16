@@ -59,8 +59,8 @@ module.exports = (db) => {
           return;
         }
         req.session.userId = user.id;
-        console.log(req.session.userId);
-        res.render('navigation');
+        console.log(user);
+        res.render('navigation', {user: user});
       })
       .catch(err => res.send(err));
   });
