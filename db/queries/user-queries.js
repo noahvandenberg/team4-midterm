@@ -1,5 +1,7 @@
 const db = require('../db');
 
+
+// Gets all users in db
 const allUsers = function() {
   const strQuery = `SELECT * FROM users;`;
   return db
@@ -10,6 +12,7 @@ const allUsers = function() {
 exports.allUsers = allUsers;
 
 
+// Gets a
 const findUser = function(strProperty, value) {
   const strQuery = `
     SELECT * FROM users where ${strProperty} = $1;`;

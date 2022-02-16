@@ -35,7 +35,7 @@ const mapPoints = async (mapId) => {
 exports.mapPoints = mapPoints;
 
 
-//
+// Gets a point by id
 const findPoint = async (pointId) => {
   const values = [pointId];
   const strQuery = `SELECT * FROM points WHERE id = $1;`;
@@ -45,7 +45,7 @@ const findPoint = async (pointId) => {
 exports.findPoint = findPoint;
 
 
-//
+// Edits a point
 const editPoint = async (user, body) => {
   const values = Object.values(body);
   let strQuery = 'UPDATE points SET ';
