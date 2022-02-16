@@ -29,7 +29,7 @@ module.exports = (db) => {
   router.get('/:id', (req, res) => {
     findUserMaps(req.params.id)
       .then(maps => {
-        res.json({ maps });
+        res.send(maps);
       })
       .catch(err => {
         res
