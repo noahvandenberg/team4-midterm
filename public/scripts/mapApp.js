@@ -8,7 +8,7 @@ $(document).ready(function() {
 // Currently only draws the same map every time
 // Will take an array parameter with coordinates to set initial view
 //    first element will be latitude and second will be longitude
-const renderMap = function(arrCoords) {
+const renderMap = function(mapId) {
   // Sets Map and it's initial location
   const map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
 
@@ -25,13 +25,16 @@ const renderMap = function(arrCoords) {
   // diable map zoom on double click
   map.doubleClickZoom.disable();
 
+  // create layer group to hold markers
+  const markers = L.layerGroup().addTo(map)
+
   // handler to add marker to map as well as corresponding point to sidebar list
   map.on("dblclick", function(pointer) {
 
     console.log(pointer);
 
     // Add point to map
-    const marker = L.marker(pointer.latlng).addTo(map);
+    const marker = L.marker(pointer.latlng).addTo(markers);
     console.log(marker);
     // database query to create new point goes here
 
