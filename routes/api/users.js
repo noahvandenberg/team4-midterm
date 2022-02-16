@@ -1,5 +1,6 @@
-const { findUserById, deleteUser, allUsers, createUser, updateUserEmail, updateUserFirstName, updateUserPassword } = require('../../db/queries/user-queries');
+const { findUserById, findUserByEmail, deleteUser, allUsers, createUser, updateUserEmail, updateUserFirstName, updateUserLastName, updateUserPassword } = require('../../db/queries/user-queries');
 const chalk = require('chalk');
+const e = require('express');
 
 module.exports = (router) => {
 
@@ -20,7 +21,12 @@ module.exports = (router) => {
   router.get('/:id', async (req, res) => {
     try {
       const dbResponse = await findUserById(req.params.id);
-      res.json(dbResponse)
+      if (dbResponse.length > 0) {
+        res.json(dbResponse)
+      } else {
+        res.json(dbResponse)
+        throw 'User Does Not Exist'
+      }
     } catch (error) {
       console.log(chalk.redBright('ERROR in user.js @ GET \'/:id\':', chalk.whiteBright(error)))
       return res.status(500);
@@ -32,18 +38,27 @@ module.exports = (router) => {
   // EDIT
   router.put('/:id', async (req, res) => {
     try {
-      const dbResponse = await findUserById(req.body.id);
-      if (req.body.email) {
-        updateUserEmail(req.body.id, req.body.email);
-      }
-      if (req.body.firstName) {
-        updateUserFirstName(req.body.id, req.body.firstName);
-      }
-      if (req.body.lastName) {
-        updateUserLastName(req.body.id, req.body.lastName);
-      }
-      if (req.body.password) {
-        updateUserPassword(req.body.id, req.body.password);
+      const dbResponse = await findUserById(req.params.id);
+      // console.log(req.body)
+      if (dbResponse) {
+        let updateResponse = '';
+        if (req.body.email) {
+          updateResponse = await updateUserEmail(req.params.id, req.body.email);
+        }
+        if (req.body.firstName) {
+          updateResponse = await updateUserFirstName(req.params.id, req.body.firstName);
+        }
+        if (req.body.lastName) {
+          updateResponse = await updateUserLastName(req.params.id, req.body.lastName);
+        }
+        if (req.body.password) {
+          updateResponse = await updateUserPassword(req.params.id, req.body.password);
+        }
+        console.log('UDRB',updateResponse)
+        res.json(updateResponse);
+      } else {
+        res.json(dbResponse);
+        throw 'User Does Not Exist'
       }
     } catch (error) {
       console.log(chalk.redBright('ERROR in user.js @ GET \'/:id\':', chalk.whiteBright(error)));
@@ -57,9 +72,11 @@ module.exports = (router) => {
   router.post('/', async (req, res) => {
     try {
       const dbResponse = await findUserByEmail(req.body.email);
-      if (!dbResponse) {
-        createUser(req.body);
+      if (dbResponse.length === 0) {
+        const createResponse = await createUser(req.body);
+        res.json(createResponse);
       } else {
+        res.json();
         throw 'User Already Exists';
       }
     } catch (error) {
@@ -74,10 +91,12 @@ module.exports = (router) => {
   router.delete('/:id', async (req, res) => {
     try {
       const dbResponse = await findUserById(req.params.id);
-      if (!dbResponse) {
-        deleteUser(req.params.id);
+      if (dbResponse.length > 0) {
+        const deleteResponse = await deleteUser(req.params.id);
+        res.json(deleteResponse);
       } else {
-        throw 'User Does Not Exist'
+        res.json(dbResponse);
+        throw 'User Does Not Exist';
       }
     } catch (error) {
       console.log(chalk.redBright('ERROR in user.js @ DELETE \'/:id\':', chalk.whiteBright(error)))

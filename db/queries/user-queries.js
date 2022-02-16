@@ -9,7 +9,7 @@ const chalk = require('chalk')
 const allUsers = async () => {
   try {
     const query = {
-      test: 'SELECT * FROM users;',
+      text: 'SELECT * FROM users;',
     };
     const dbResponse = await db.query(query);
     return dbResponse.rows;
@@ -59,7 +59,7 @@ exports.findUserByEmail = findUserByEmail;
 const updateUserEmail = async (userID,newEmail) => {
   try {
     const query = {
-      text: 'UPDATE users SET email = $1 WHERE id = $2;',
+      text: 'UPDATE users SET email = $1 WHERE id = $2 RETURNING *;',
       values: [newEmail, userID],
     }
     const dbResponse = await db.query(query);
@@ -74,7 +74,7 @@ exports.updateUserEmail = updateUserEmail
 const updateUserFirstName = async (userID,newFirstName) => {
   try {
     const query = {
-      text: 'UPDATE users SET first_name = $1 WHERE id = $2;',
+      text: 'UPDATE users SET first_name = $1 WHERE id = $2 RETURNING *;',
       values: [newFirstName, userID],
     }
     const dbResponse = await db.query(query);
@@ -89,7 +89,7 @@ exports.updateUserFirstName = updateUserFirstName
 const updateUserLastName = async (userID,newLastName) => {
   try {
     const query = {
-      text: 'UPDATE users SET first_name = $1 WHERE id = $2;',
+      text: 'UPDATE users SET last_name = $1 WHERE id = $2 RETURNING *;',
       values: [newLastName, userID],
     }
     const dbResponse = await db.query(query);
@@ -104,7 +104,7 @@ exports.updateUserLastName = updateUserLastName
 const updateUserPassword = async (userID,newPassword) => {
   try {
     const query = {
-      text: 'UPDATE users SET first_name = $1 WHERE id = $2;',
+      text: 'UPDATE users SET first_name = $1 WHERE id = $2 RETURNING *;',
       values: [newPassword, userID],
     }
     const dbResponse = await db.query(query);
@@ -122,8 +122,8 @@ exports.updateUserPassword = updateUserPassword
 const createUser = async (user) => {
   try {
     const query = {
-      text: 'INSERT INTO users (email, first_name, last_name, password) VALUES ($1, $2, $3, $4);',
-      values: [user.email, user.first_name, user.last_name, user.password],
+      text: 'INSERT INTO users (email, first_name, last_name, password) VALUES ($1, $2, $3, $4) RETURNING *;',
+      values: [user.email, user.firstName, user.lastName, user.password],
     }
     const dbResponse = await db.query(query);
     return dbResponse.rows;
@@ -140,7 +140,7 @@ exports.createUser = createUser;
 const deleteUser = async (userID) => {
   try {
     const query = {
-      text: 'DELETE FROM users WHERE id = $1;',
+      text: 'DELETE FROM users WHERE id = $1 RETURNING *;',
       values: [userID],
     }
     const dbResponse = await db.query(query);

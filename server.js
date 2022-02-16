@@ -39,7 +39,7 @@ app.use(
 // // User Routes
 const viewRouter = express.Router();
 const viewRoutes = require('./routes/viewRoutes');
-navRoutes(viewRouter, db);
+viewRoutes(viewRouter, db);
 app.use('/', viewRouter);
 app.use(express.static(path.join(__dirname, './public')));
 
