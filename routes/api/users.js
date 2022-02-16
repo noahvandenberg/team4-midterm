@@ -10,7 +10,7 @@ module.exports = (router) => {
       const dbResponse = await allUsers();
       res.json(dbResponse)
     } catch (error) {
-      console.log(chalk.redBright('ERROR in user.js @ GET \'/\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in users.js @ GET \'/\':', chalk.whiteBright(error)))
       return res.status(500);
     }
   });
@@ -28,7 +28,7 @@ module.exports = (router) => {
         throw 'User Does Not Exist'
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in user.js @ GET \'/:id\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in users.js @ GET \'/:id\':', chalk.whiteBright(error)))
       return res.status(500);
     }
   });
@@ -41,7 +41,7 @@ module.exports = (router) => {
       const dbResponse = await findUserById(req.params.id);
       // console.log(req.body)
       if (dbResponse) {
-        let updateResponse = '';
+        let updateResponse = dbResponse;
         if (req.body.email) {
           updateResponse = await updateUserEmail(req.params.id, req.body.email);
         }
@@ -54,14 +54,13 @@ module.exports = (router) => {
         if (req.body.password) {
           updateResponse = await updateUserPassword(req.params.id, req.body.password);
         }
-        console.log('UDRB',updateResponse)
         res.json(updateResponse);
       } else {
         res.json(dbResponse);
         throw 'User Does Not Exist'
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in user.js @ GET \'/:id\':', chalk.whiteBright(error)));
+      console.log(chalk.redBright('ERROR in users.js @ GET \'/:id\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
@@ -80,7 +79,7 @@ module.exports = (router) => {
         throw 'User Already Exists';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in user.js @ POST \'/\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in users.js @ POST \'/\':', chalk.whiteBright(error)))
       return res.status(500);
     }
   });
@@ -99,7 +98,7 @@ module.exports = (router) => {
         throw 'User Does Not Exist';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in user.js @ DELETE \'/:id\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in users.js @ DELETE \'/:id\':', chalk.whiteBright(error)))
       return res.status(500);
     }
   });

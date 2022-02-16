@@ -1,4 +1,3 @@
-const req = require('express/lib/request');
 const res = require('express/lib/response');
 const db = require('../db');
 const chalk = require('chalk')

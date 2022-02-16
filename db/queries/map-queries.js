@@ -1,4 +1,6 @@
+const res = require('express/lib/response');
 const db = require('../db');
+const chalk = require('chalk')
 
 
 
@@ -6,7 +8,7 @@ const db = require('../db');
 const allMaps = async () => {
   try {
     const query = {
-      test: 'SELECT * FROM maps;',
+      text: 'SELECT * FROM maps;',
     };
     const dbResponse = await db.query(query);
     return dbResponse.rows;
@@ -23,7 +25,7 @@ exports.allMaps = allMaps;
 const findMapsByUser = async (userId) => {
   try {
     const query = {
-      test: 'SELECT * FROM maps WHERE creator_id = $1;',
+      text: 'SELECT * FROM maps WHERE creator_id = $1;',
       values: [userId],
     };
     const dbResponse = await db.query(query);
@@ -35,10 +37,10 @@ const findMapsByUser = async (userId) => {
 };
 exports.findMapsByUser = findMapsByUser;
 
-const findMapsById = async (mapId) => {
+const findMapById = async (mapId) => {
   try {
     const query = {
-      test: 'SELECT * FROM maps WHERE id = $1;',
+      text: 'SELECT * FROM maps WHERE id = $1;',
       values: [mapId],
     };
     const dbResponse = await db.query(query);
@@ -48,7 +50,7 @@ const findMapsById = async (mapId) => {
     return res.status(500);
   }
 };
-exports.findMapsById = findMapsById;
+exports.findMapById = findMapById;
 
 
 
@@ -56,7 +58,7 @@ exports.findMapsById = findMapsById;
 const updateMapTitle = async (mapId, title) => {
   try {
     const query = {
-      test: 'UPDATE maps SET title = $1 WHERE id = $2;',
+      text: 'UPDATE maps SET title = $1 WHERE id = $2 RETURNING *;',
       values: [title, mapId],
     };
     const dbResponse = await db.query(query);
@@ -71,7 +73,7 @@ exports.updateMapTitle = updateMapTitle
 const updateMapDescription = async (mapId, description) => {
   try {
     const query = {
-      test: 'UPDATE maps SET description = $1 WHERE id = $2;',
+      text: 'UPDATE maps SET description = $1 WHERE id = $2 RETURNING *;',
       values: [description, mapId],
     };
     const dbResponse = await db.query(query);
@@ -89,7 +91,7 @@ exports.updateMapDescription = updateMapDescription
 const createMap = async (userId,title,description) => {
   try {
     const query = {
-      test: 'INSERT INTO maps (creator_id, title, description) VALUES ($1, $2, $3) RETURNING *;',
+      text: 'INSERT INTO maps (creator_id, title, description) VALUES ($1, $2, $3) RETURNING *;',
       values: [userId, title, description],
     };
     const dbResponse = await db.query(query);
@@ -107,7 +109,7 @@ exports.createMap = createMap;
 const deleteMap = async (mapId) => {
   try {
     const query = {
-      test: 'DELETE FROM maps WHERE id = $1;',
+      text: 'DELETE FROM maps WHERE id = $1 RETURNING *;',
       values: [mapId],
     };
     const dbResponse = await db.query(query);
