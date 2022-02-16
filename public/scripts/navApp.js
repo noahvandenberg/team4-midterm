@@ -74,6 +74,6 @@ const addUserMaps = function() {
     });
 
     // render the user's first map in the database
-    renderMap(res.maps[0].id);
+    renderMap();
   });
 };
