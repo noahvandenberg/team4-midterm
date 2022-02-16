@@ -1,5 +1,19 @@
 const { allMaps, findUserMaps, addUserMap, deleteUserMap } = require('../../db/queries/map-queries');
 
+const tempModule = (router, db) => {
+
+  // BROWSE
+
+  // READ
+
+  // EDIT
+
+  // ADD
+
+  // DELETE
+
+}
+
 module.exports = (router, db) => {
 
   /************ Get a list of all maps irrespective of user ***********/

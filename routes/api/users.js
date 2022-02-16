@@ -1,5 +1,19 @@
 const { findUserById, addUser, deleteUser, allUsers, editUser } = require('../../db/queries/user-queries');
 
+const tempModule = (router, db) => {
+
+  // BROWSE
+
+  // READ
+
+  // EDIT
+
+  // ADD
+
+  // DELETE
+
+}
+
 module.exports = (router, db) => {
 
   /*********************** Browse all of the users **********************/

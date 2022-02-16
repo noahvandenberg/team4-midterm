@@ -1,5 +1,19 @@
 const { allPoints, mapPoints, findPoint, editPoint, newPoint, deletePoint } = require('../../db/queries/point-queries');
 
+const tempModule = (router, db) => {
+
+  // BROWSE
+
+  // READ
+
+  // EDIT
+
+  // ADD
+
+  // DELETE
+
+}
+
 module.exports = (router, db) => {
 
   /********************** Browse a list of all points ***********************/
