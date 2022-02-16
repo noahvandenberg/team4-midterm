@@ -23,11 +23,11 @@ exports.allUsers = allUsers;
 
 
 // READ
-const findUserById = async (value) => {
+const findUserById = async (userId) => {
   try {
     const query = {
       text: 'SELECT * FROM users WHERE id = $1;',
-      values: [value],
+      values: [userId],
     }
     const dbResponse = await db.query(query);
     return dbResponse.rows;
@@ -37,6 +37,21 @@ const findUserById = async (value) => {
   }
 };
 exports.findUserById = findUserById;
+
+const findUserByEmail = async (userEmail) => {
+  try {
+    const query = {
+      text: 'SELECT * FROM users WHERE email = $1;',
+      values: [userEmail],
+    }
+    const dbResponse = await db.query(query);
+    return dbResponse.rows;
+  } catch (error) {
+    console.log(chalk.redBright('ERROR in user-queries.js @ findUserByID:', chalk.whiteBright(error)))
+    return res.status(500);
+  }
+};
+exports.findUserByEmail = findUserByEmail;
 
 
 
@@ -84,7 +99,7 @@ const updateUserLastName = async (userID,newLastName) => {
     return res.status(500);
   }
 };
-exports.updateUserFirstName = updateUserLastName
+exports.updateUserLastName = updateUserLastName
 
 const updateUserPassword = async (userID,newPassword) => {
   try {
@@ -99,7 +114,7 @@ const updateUserPassword = async (userID,newPassword) => {
     return res.status(500);
   }
 };
-exports.updateUserFirstName = updateUserPassword
+exports.updateUserPassword = updateUserPassword
 
 
 

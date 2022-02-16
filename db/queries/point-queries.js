@@ -35,7 +35,7 @@ const findPointsByUser = async (userId) => {
 };
 exports.findPointsByUser = findPointsByUser;
 
-const findMapsById = async (mapId) => {
+const findPointsById = async (mapId) => {
   try {
     const query = {
       test: 'SELECT * FROM points WHERE id = $1;',
@@ -48,7 +48,7 @@ const findMapsById = async (mapId) => {
     return res.status(500);
   }
 };
-exports.findMapsById = findMapsById;
+exports.findPointsById = findPointsById;
 
 
 

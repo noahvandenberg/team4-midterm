@@ -1,89 +1,91 @@
-const { findUserById, addUser, deleteUser, allUsers, editUser } = require('../../db/queries/user-queries');
+const { findUserById, deleteUser, allUsers, createUser, updateUserEmail, updateUserFirstName, updateUserPassword } = require('../../db/queries/user-queries');
+const chalk = require('chalk');
 
-const tempModule = (router, db) => {
+module.exports = (router) => {
 
   // BROWSE
+  router.get('/', async (req, res) => {
+    try {
+      const dbResponse = await allUsers();
+      res.json(dbResponse)
+    } catch (error) {
+      console.log(chalk.redBright('ERROR in user.js @ GET \'/\':', chalk.whiteBright(error)))
+      return res.status(500);
+    }
+  });
+
+
 
   // READ
+  router.get('/:id', async (req, res) => {
+    try {
+      const dbResponse = await findUserById(req.params.id);
+      res.json(dbResponse)
+    } catch (error) {
+      console.log(chalk.redBright('ERROR in user.js @ GET \'/:id\':', chalk.whiteBright(error)))
+      return res.status(500);
+    }
+  });
+
+
 
   // EDIT
+  router.put('/:id', async (req, res) => {
+    try {
+      const dbResponse = await findUserById(req.body.id);
+      if (req.body.email) {
+        updateUserEmail(req.body.id, req.body.email);
+      }
+      if (req.body.firstName) {
+        updateUserFirstName(req.body.id, req.body.firstName);
+      }
+      if (req.body.lastName) {
+        updateUserLastName(req.body.id, req.body.lastName);
+      }
+      if (req.body.password) {
+        updateUserPassword(req.body.id, req.body.password);
+      }
+    } catch (error) {
+      console.log(chalk.redBright('ERROR in user.js @ GET \'/:id\':', chalk.whiteBright(error)));
+      return res.status(500);
+    }
+  });
+
+
 
   // ADD
+  router.post('/', async (req, res) => {
+    try {
+      const dbResponse = await findUserByEmail(req.body.email);
+      if (!dbResponse) {
+        createUser(req.body);
+      } else {
+        throw 'User Already Exists';
+      }
+    } catch (error) {
+      console.log(chalk.redBright('ERROR in user.js @ POST \'/\':', chalk.whiteBright(error)))
+      return res.status(500);
+    }
+  });
+
+
 
   // DELETE
-
-}
-
-module.exports = (router, db) => {
-
-  /*********************** Browse all of the users **********************/
-  router.get("/", async (req, res) => {
-    const dbResponse = await allUsers();
-    res.json(dbResponse)
+  router.delete('/:id', async (req, res) => {
+    try {
+      const dbResponse = await findUserById(req.params.id);
+      if (!dbResponse) {
+        deleteUser(req.params.id);
+      } else {
+        throw 'User Does Not Exist'
+      }
+    } catch (error) {
+      console.log(chalk.redBright('ERROR in user.js @ DELETE \'/:id\':', chalk.whiteBright(error)))
+      return res.status(500);
+    }
   });
 
-  /***************** Read the details of a specific user *****************/
-  router.get("/:id", async (req, res) => {
-    const dbResponse = await findUserById(req.params.id);
-    res.json(dbResponse)
-  });
 
-  /*************************** Edit a user *****************************/
-  router.put('/:id', (req, res) => {
-    findUserById(req.body.id)
-      .then(user => editUser(user, req.body))
-      .catch(err => {
-        res
-          .status(500)
-          .json({error: err.message });
-      });
-  });
-
-  /************************** Login a user *****************************/
-  router.post('/login', (req, res) => {
-    console.log(req.body);
-    findUser('email', req.body.email)
-      .then(user => {
-        if (!user) {
-          res.send({error: "error"});
-          return;
-        }
-        req.session.userId = user.id;
-        console.log(req.session.userId);
-      })
-      .catch(err => res.send(err));
-  });
-
-  /**************************** Logout a user **************************/
-  router.post('/logout', (req) => {
-    req.session.userId = null;
-  });
-
-  /****************************** Add a user ******************************/
-  router.post('/', (req, res) => {
-    findUser('email',req.body.email)
-      .then((user) => {
-        console.log(user);
-        if (!user) addUser(req.body);
-        else console.log('User already exists');
-      })
-      .catch((err) => {
-        res
-          .status(500)
-          .json({error: err.message});
-      });
-  });
-
-  /*************************** Delete a user ***************************/
-  router.delete('/:param', (req, res) => {
-    findUser(req.body.search, req.body.search_value)
-      .then(user => deleteUser(user))
-      .catch(err => {
-        res
-          .status(500)
-          .json({error: err.message });
-      });
-  });
 
   return router;
 };
