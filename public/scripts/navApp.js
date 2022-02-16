@@ -20,6 +20,7 @@ $(document).ready(function() {
     $('#map').remove();
     const $map = $('<section>').attr('id', 'map');
     $('main').append($map);
+    $('.points-list').empty();
     renderMap();
   });
 
