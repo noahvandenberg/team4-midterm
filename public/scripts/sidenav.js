@@ -1,9 +1,9 @@
-/* Set the width of the side navigation to 250px */
-const openNav = function() {
-  document.getElementById("mySidenav").style.width = "300px";
-};
+$(() => {
 
-/* Set the width of the side navigation to 0 */
-const closeNav = function() {
-  document.getElementById("mySidenav").style.width = "0";
-};
+  $('#mySidenav').click(() => {
+    console.log($('#mySidenav').width());
+    if ($('#mySidenav').width() === 10) {
+      $('#mySidenav').width('300px');
+    } else $('#mySidenav').width('10px');
+  });
+});
