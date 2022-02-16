@@ -54,9 +54,9 @@ const userAPIRoutes = require('./api/users');
 mapAPIRoutes(mapRouter, db);
 pointAPIRoutes(pointRouter, db);
 userAPIRoutes(userRouter, db);
-app.use('/api/map', mapRouter);
-app.use('/api/point', pointRouter);
-app.use('/api/user', userRouter);
+app.use('/api/maps', mapRouter);
+app.use('/api/points', pointRouter);
+app.use('/api/users', userRouter);
 
 
 
