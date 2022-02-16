@@ -1,4 +1,4 @@
-const { allMaps, findMapsByUser, findMapById, updateMapTitle, updateMapDescription, createMap, deleteMap } = require('../../db/queries/map-queries');
+const { allMaps, findMapsByUser, findMapById, updateMapTitle, updateMapDescription, createMap, deleteMap } = require('../db/queries/map-queries');
 const chalk = require('chalk');
 const e = require('express');
 

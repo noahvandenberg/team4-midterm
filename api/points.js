@@ -1,4 +1,4 @@
-const { allPoints, findPointById, findPointsByUser, updatePointTitle, updatePointDescription, updatePointImageURL, updatePointLocation, createPoint, deletePoint } = require('../../db/queries/point-queries');
+const { allPoints, findPointById, findPointsByUser, updatePointTitle, updatePointDescription, updatePointImageURL, updatePointLocation, createPoint, deletePoint } = require('../db/queries/point-queries');
 const chalk = require('chalk');
 const e = require('express');
 

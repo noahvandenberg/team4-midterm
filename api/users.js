@@ -1,4 +1,4 @@
-const { findUserById, findUserByEmail, deleteUser, allUsers, createUser, updateUserEmail, updateUserFirstName, updateUserLastName, updateUserPassword } = require('../../db/queries/user-queries');
+const { findUserById, findUserByEmail, deleteUser, allUsers, createUser, updateUserEmail, updateUserFirstName, updateUserLastName, updateUserPassword } = require('../db/queries/user-queries');
 const chalk = require('chalk');
 const e = require('express');
 
