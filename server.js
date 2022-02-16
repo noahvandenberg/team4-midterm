@@ -37,10 +37,10 @@ app.use(
 
 
 // // User Routes
-const navRouter = express.Router();
-const navRoutes = require('./routes/userRoutes');
-navRoutes(navRouter, db);
-app.use('/', navRouter);
+const viewRouter = express.Router();
+const viewRoutes = require('./routes/viewRoutes');
+navRoutes(viewRouter, db);
+app.use('/', viewRouter);
 app.use(express.static(path.join(__dirname, './public')));
 
 
