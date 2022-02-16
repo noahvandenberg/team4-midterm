@@ -26,7 +26,7 @@ const renderMap = function(mapId) {
   map.doubleClickZoom.disable();
 
   // create layer group to hold markers
-  const markers = L.layerGroup().addTo(map)
+  const markers = L.layerGroup().addTo(map);
 
   // handler to add marker to map as well as corresponding point to sidebar list
   map.on("dblclick", function(pointer) {
@@ -39,7 +39,7 @@ const renderMap = function(mapId) {
     // database query to create new point goes here
 
     // Add corresponding point element to sidebar list
-    const $newPoint = $('<input>').attr('type', 'button')
+    const $newPoint = $('<input>').attr('type', 'button');
     $newPoint.attr('name', Math.floor(Math.random() * 1000));
     $newPoint.val("a new point");
     $('.points-list').append($newPoint);

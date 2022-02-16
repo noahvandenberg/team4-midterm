@@ -7,10 +7,10 @@ $(document).ready(function() {
   // Handler to add a new map to page
   // does not yet make database call
   $('.add-map').on("click", function() {
-    const map = {}
+    const map = {};
     map.creator_id = 1;
     map.description = "map decription";
-    map.title = "map title"
+    map.title = "map title";
     map.time_created = Date.now();
 
     // randomly generated id for now
@@ -74,6 +74,6 @@ const addUserMaps = function() {
     });
 
     // render the user's first map in the database
-    mapRender(res.maps[0].id);
-  })
+    renderMap(res.maps[0].id);
+  });
 };
