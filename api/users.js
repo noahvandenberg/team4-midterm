@@ -1,16 +1,15 @@
 const { findUserById, findUserByEmail, deleteUser, allUsers, createUser, updateUserEmail, updateUserFirstName, updateUserLastName, updateUserPassword } = require('../db/queries/user-queries');
 const chalk = require('chalk');
-const e = require('express');
 
 module.exports = (router) => {
 
   // BROWSE
-  router.get('/', async (req, res) => {
+  router.get('/', async(req, res) => {
     try {
       const dbResponse = await allUsers();
-      res.json(dbResponse)
+      res.json(dbResponse);
     } catch (error) {
-      console.log(chalk.redBright('ERROR in users.js @ GET \'/\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in users.js @ GET \'/\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
@@ -18,17 +17,17 @@ module.exports = (router) => {
 
 
   // READ
-  router.get('/:id', async (req, res) => {
+  router.get('/:id', async(req, res) => {
     try {
       const dbResponse = await findUserById(req.params.id);
       if (dbResponse.length > 0) {
-        res.json(dbResponse)
+        res.json(dbResponse);
       } else {
-        res.json(dbResponse)
-        throw 'User Does Not Exist'
+        res.json(dbResponse);
+        throw 'User Does Not Exist';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in users.js @ GET \'/:id\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in users.js @ GET \'/:id\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
@@ -36,10 +35,9 @@ module.exports = (router) => {
 
 
   // EDIT
-  router.put('/:id', async (req, res) => {
+  router.put('/:id', async(req, res) => {
     try {
       const dbResponse = await findUserById(req.params.id);
-      // console.log(req.body)
       if (dbResponse.length > 0) {
         let updateResponse = dbResponse;
         if (req.body.email) {
@@ -57,7 +55,7 @@ module.exports = (router) => {
         res.json(updateResponse);
       } else {
         res.json(dbResponse);
-        throw 'User Does Not Exist'
+        throw 'User Does Not Exist';
       }
     } catch (error) {
       console.log(chalk.redBright('ERROR in users.js @ GET \'/:id\':', chalk.whiteBright(error)));
@@ -68,7 +66,7 @@ module.exports = (router) => {
 
 
   // ADD
-  router.post('/', async (req, res) => {
+  router.post('/', async(req, res) => {
     try {
       const dbResponse = await findUserByEmail(req.body.email);
       if (dbResponse.length === 0) {
@@ -79,7 +77,7 @@ module.exports = (router) => {
         throw 'User Already Exists';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in users.js @ POST \'/\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in users.js @ POST \'/\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
@@ -87,7 +85,7 @@ module.exports = (router) => {
 
 
   // DELETE
-  router.delete('/:id', async (req, res) => {
+  router.delete('/:id', async(req, res) => {
     try {
       const dbResponse = await findUserById(req.params.id);
       if (dbResponse.length > 0) {
@@ -98,7 +96,7 @@ module.exports = (router) => {
         throw 'User Does Not Exist';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in users.js @ DELETE \'/:id\':', chalk.whiteBright(error)))
+      console.log(chalk.redBright('ERROR in users.js @ DELETE \'/:id\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
