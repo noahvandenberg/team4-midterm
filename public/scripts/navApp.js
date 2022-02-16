@@ -1,5 +1,3 @@
-const mapRender = require("../../routes/mapRender");
-
 $(document).ready(function() {
 
   addUserMaps();
@@ -14,6 +12,9 @@ $(document).ready(function() {
     map.description = "map decription";
     map.title = "map title"
     map.time_created = Date.now();
+
+    // randomly generated id for now
+    map.id = Math.floor(Math.random() * 10000);
 
     addMap(map);
     $('#map').remove();
@@ -33,6 +34,7 @@ $(document).ready(function() {
     $('#map').remove();
     const $map = $('<section>').attr('id', 'map');
     $('main').append($map);
+    $('.points-list').empty();
     renderMap();
   });
 
@@ -71,6 +73,6 @@ const addUserMaps = function() {
     });
 
     // render the user's first map in the database
-    mapRender(res.maps[0]);
+    mapRender(res.maps[0].id);
   })
 };
