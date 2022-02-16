@@ -13,6 +13,8 @@ module.exports = (router, db) => {
           .status(500)
           .json({ error: err.message });
       });
+
+
   });
 
   /***************** Read the details of a specific user *****************/

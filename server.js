@@ -37,31 +37,30 @@ app.use(
 
 
 // // User Routes
-const userRouter = express.Router();
-const userRoutes = require('./routes/userRoutes');
-userRoutes(userRouter, db);
-app.use('/', userRouter);
+const navRouter = express.Router();
+const navRoutes = require('./routes/userRoutes');
+navRoutes(navRouter, db);
+app.use('/', navRouter);
 app.use(express.static(path.join(__dirname, './public')));
 
 
 // API Routes
-const apiRouter = express.Router();
-
+const mapRouter = express.Router();
+const pointRouter = express.Router();
+const userRouter = express.Router();
 const mapAPIRoutes = require('./routes/api/maps');
 const pointAPIRoutes = require('./routes/api/points');
 const userAPIRoutes = require('./routes/api/users');
-
-mapAPIRoutes(userRouter, db);
-pointAPIRoutes(userRouter, db);
+mapAPIRoutes(mapRouter, db);
+pointAPIRoutes(pointRouter, db);
 userAPIRoutes(userRouter, db);
-
-app.use('/api/map', apiRouter);
-app.use('/api/point', apiRouter);
-app.use('/api/user', apiRouter);
+app.use('/api/map', mapRouter);
+app.use('/api/point', pointRouter);
+app.use('/api/user', userRouter);
 
 
 
 // App Listening
-app.listen(PORT, () => {
+  app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
