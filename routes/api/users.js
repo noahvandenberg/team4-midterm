@@ -40,7 +40,7 @@ module.exports = (router) => {
     try {
       const dbResponse = await findUserById(req.params.id);
       // console.log(req.body)
-      if (dbResponse) {
+      if (dbResponse.length > 0) {
         let updateResponse = dbResponse;
         if (req.body.email) {
           updateResponse = await updateUserEmail(req.params.id, req.body.email);

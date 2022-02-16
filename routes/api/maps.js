@@ -14,6 +14,7 @@ module.exports = (router) => {
       return res.status(500);
     }
   });
+
   router.get('/u/:id', async (req, res) => {
     try {
       const dbResponse = await findMapsByUser(req.params.id);
@@ -21,7 +22,7 @@ module.exports = (router) => {
         res.json(dbResponse)
       } else {
         res.json(dbResponse)
-        throw 'Map Does Not Exist'
+        throw 'User Does Not Exist'
       }
     } catch (error) {
       console.log(chalk.redBright('ERROR in maps.js @ GET \'/u/:id\':', chalk.whiteBright(error)))
@@ -54,7 +55,7 @@ module.exports = (router) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       // console.log(req.body)
-      if (dbResponse) {
+      if (dbResponse.length > 0) {
         let updateResponse = dbResponse;
         if (req.body.title) {
           updateResponse = await updateMapTitle(req.params.id, req.body.title);
