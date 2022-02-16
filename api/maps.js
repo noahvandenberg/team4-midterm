@@ -86,7 +86,7 @@ module.exports = (router) => {
         throw 'Missing Required Parameter';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in map.js @ POST \'/\':', chalk.whiteBright(error)));
+      console.log(chalk.redBright('ERROR in maps.js @ POST \'/\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });
