@@ -44,6 +44,9 @@ const renderMap = function(mapId) {
 
     // handler to add marker to map as well as corresponding point to sidebar list
     map.on("dblclick", function(pointer) {
+      // If there is a currently unsaved marker created, delete it first
+      markers.removeLayer(currentMarkerId);
+
       // Add point to map
       const marker = L.marker(pointer.latlng).addTo(markers);
       currentMarkerId = marker._leaflet_id;
