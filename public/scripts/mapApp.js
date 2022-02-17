@@ -4,14 +4,15 @@
 // Will take an array parameter with coordinates to set initial view
 //    first element will be latitude and second will be longitude
 const renderMap = function(mapId) {
+  console.log('mapId:', mapId);
   return $.ajax({
     method: "GET",
     url: `/points/${mapId}`
   }).then((data) => {
-    console.log(data);
     // Sets Map and it's initial location
     const initialLat = data[0].latitude;
     const initialLng = data[0].longitude;
+    console.log('Lat:', initialLat, 'Long:', initialLng);
     const map = L.map('map').setView([initialLat, initialLng], 13);
 
     // create layer group to hold markers
