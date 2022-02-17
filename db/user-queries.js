@@ -2,6 +2,7 @@ const db = require('./db');
 
 const allUsers = function() {
   const strQuery = `SELECT * FROM users;`;
+  console.log('in allUsers');
   return db
     .query(strQuery)
     .then(result => result.rows)
@@ -13,6 +14,7 @@ exports.allUsers = allUsers;
 const findUser = function(strProperty, value) {
   const strQuery = `
     SELECT * FROM users where ${strProperty} = $1;`;
+    console.log('in findUser');
   return db
     .query(strQuery, [value])
     .then((result) => result.rows[0])
