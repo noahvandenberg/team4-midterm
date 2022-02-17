@@ -18,8 +18,19 @@ const isLoggedIn = (cookie) => {
   return false
 };
 
+const randomSelection = (arr, count) => {
+  const randomArr = [];
+  for (let i = 0; i < count; i++) {
+    randomChoice = Math.floor(Math.random() * arr.length);
+    randomMapArry.push(arr[randomChoice]);
+  }
+  return randomArr;
+}
+
 
 
 module.exports = {
   authenticateUser,
+  isLoggedIn,
+  randomSelection,
 }
