@@ -3,8 +3,7 @@
 
 <head>
   <title>Home Page</title>
-
-  <%- include('/partials/head') %>
+  <%- include('partials/head') %>
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
 </head>
 
@@ -12,10 +11,14 @@
   <div class="container">
     <div class="left"></div>
     <div class="right">
-      <div class="form-title"><h1>Your World</h1><h2>your map</h2></div>
+      <div class="form-title">
+        <h1>Your World</h1>
+        <h2>your map</h2>
+      </div>
       <div class="form-inputs">
         <form method="POST" action="/users/login">
-          <input type="email" name="email" placeholder="Your email address here." id="#userEmail" value="Fleur_Wit@yahoo.com" required>
+          <input type="email" name="email" placeholder="Your email address here." id="#userEmail"
+            value="Fleur_Wit@yahoo.com" required>
           <input type="submit" name="login" value="Login" id="loginButton">
         </form>
       </div>

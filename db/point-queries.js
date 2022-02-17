@@ -51,15 +51,15 @@ const editPoint = function(user, body) {
   const values = Object.values(body);
   let strQuery = 'UPDATE points SET ';
   switch (values.shift()) {
-  case 'title':
-    strQuery += 'title = ';
-    break;
-  case 'description':
-    strQuery += 'description = ';
-    break;
-  case 'image_url':
-    strQuery += 'image_url = ';
-    break;
+    case 'title':
+      strQuery += 'title = ';
+      break;
+    case 'description':
+      strQuery += 'description = ';
+      break;
+    case 'image_url':
+      strQuery += 'image_url = ';
+      break;
   }
   strQuery += `$1
     WHERE id = $2
