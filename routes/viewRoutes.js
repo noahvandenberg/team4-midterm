@@ -14,6 +14,14 @@ module.exports = (router, db) => {
   });
 
   // Server The General Map Page
+  router.get("/map", async (req,res) => {
+    const templateVars = {
+      maps: await allMaps(),
+    }
+    res.render("../views/map", templateVars);
+  });
+
+  // Server The General Map Page
   router.get("/maps", async (req,res) => {
 
   });
