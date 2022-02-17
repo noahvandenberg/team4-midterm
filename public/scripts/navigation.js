@@ -26,6 +26,7 @@ $(() => {
     } //else $('#myEditnav').width('0px');
   });
 
+  // handler to submit
   $('#myEditnav form').submit(function(event) {
     event.preventDefault();
     console.log($(this).children('input[name="creator_id"]').val());
@@ -63,6 +64,11 @@ $(() => {
       $('#myEditnav form').attr("hidden", "");
     });
 
-
   })
+
+  // handler to
+  $('#myEditnav > form > input[value="cancel"').on('click', function() {
+    currentMarkers.removeLayer(currentMarkerId)
+  })
+
 });
