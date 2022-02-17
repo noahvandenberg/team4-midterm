@@ -57,7 +57,7 @@ app.get("/", async(req, res) => {
   const templateVars = {
     maps: await allMaps(),
   }
-  res.render("index", templateVars);
+  res.render("profile", templateVars);
 });
 
 app.listen(PORT, () => {
