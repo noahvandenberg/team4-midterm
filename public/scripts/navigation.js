@@ -21,7 +21,7 @@ $(() => {
   $('#myEditnav').click(() => {
     if ($('#myEditnav').width() === 0) {
       $('#myEditnav').width('200px');
-    } else $('#myEditnav').width('0px');
+    } // else $('#myEditnav').width('0px');
   });
 
 });
