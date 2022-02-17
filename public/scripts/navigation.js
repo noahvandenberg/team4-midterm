@@ -51,5 +51,18 @@ $(() => {
 
     console.log(data)
 
+    $.ajax({
+      method: "POST",
+      url: "/points/",
+      timeout: 0,
+      data
+    }).done(function(res) {
+      removeMap();
+      removePoints();
+      renderMap(res.point.map_id);
+      $('#myEditnav form').attr("hidden", "");
+    });
+
+
   })
 });
