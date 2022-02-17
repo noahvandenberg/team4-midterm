@@ -14,7 +14,7 @@ exports.allUsers = allUsers;
 const findUser = function(strProperty, value) {
   const strQuery = `
     SELECT * FROM users where ${strProperty} = $1;`;
-    console.log('in findUser');
+  console.log('in findUser');
   return db
     .query(strQuery, [value])
     .then((result) => result.rows[0])

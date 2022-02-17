@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { allPoints, mapPoints, findPoint, editPoint, newPoint, deletePoint } = require('../db/point-queries.js');
+const { allPoints, mapPoints, findPoint, editPoint, newPoint, deletePoint } = require('../public/scripts/point-queries.js');
 
 module.exports = (db) => {
 

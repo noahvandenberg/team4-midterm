@@ -1,14 +1,30 @@
 $(() => {
 
-  $.get('/maps/8', (maps) => {
-    let mapTitles = '';
-    for (const map of maps) {
-      mapTitles += '<div class="mapName" id="' + map.id + '>' + map.title + '</div>';
-    }
-    console.log(mapTitles);
-    $('.mapDisplay').html(mapTitles);
-    renderMap(maps[0].id);
+  // Adjust the text for the main entrance button when the header Login button is clicked
+  // and set the input fields to a known user, check the Remember Me button
+  $('#headerLoginButton').click(() => {
+    $('#floatingInput').val('Lotte_Willems@gmail.com');
+    $('#floatingPassword').val('password');
+    $('#rememberUserCheck').prop('checked', true);
+    $('#entranceMainButton').text('Login');
   });
+
+  // Handle the main entrance click, if text is Login use the Login route or a Sign Up modal if it's Sign-up
+  $('#entranceMainButton').click(function() {
+    if ($('#entranceMainButton').text() === 'Login') {
+      const userId = findUser('email', $('#floatingInput').val());
+      console.log(userId);
+    }
+  });
+
+  // $.get('/maps/8', (maps) => {
+  //   let mapTitles = '';
+  //   for (const map of maps) {
+  //     mapTitles += '<div class="mapName" id="' + map.id + '>' + map.title + '</div>';
+  //   }
+  //   $('.mapDisplay').html(mapTitles);
+  //   renderMap(maps[0].id);
+  // });
 
   $(document).on('click', '.mapName', (function() {
     $('#map').remove();

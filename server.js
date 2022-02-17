@@ -9,7 +9,7 @@ const app = express();
 const morgan = require("morgan");
 const methodOverride = require('method-override');
 const cookieSession = require('cookie-session');
-const db = require('./db/db');
+const db = require('./public/scripts/db');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -52,7 +52,7 @@ app.use("/points", pointsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-const {allMaps} = require('./db/map-queries')
+const {allMaps} = require('./public/scripts/map-queries')
 
 app.get("/", async(req, res) => {
   const templateVars = {
