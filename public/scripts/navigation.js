@@ -3,10 +3,10 @@ $(() => {
   $.get('/maps/8', (maps) => {
     let mapTitles = '';
     for (const map of maps) {
-      mapTitles += '<div class="mapName" id="' + map.id + '">' + map.title + '</div>';
+      mapTitles += '<div class="mapName" id="' + map.id + '>' + map.title + '</div>';
     }
+    console.log(mapTitles);
     $('.mapDisplay').html(mapTitles);
-    // console.log(req.session.userId);
     renderMap(maps[0].id);
   });
 

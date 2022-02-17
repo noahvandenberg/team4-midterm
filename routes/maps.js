@@ -29,6 +29,7 @@ module.exports = (db) => {
   router.get('/:id', (req, res) => {
     findUserMaps(req.params.id)
       .then(maps => {
+        console.log('router.get')
         res.send(maps);
       })
       .catch(err => {
