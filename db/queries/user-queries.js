@@ -120,8 +120,8 @@ exports.updateUserImageURL = updateUserImageURL
 const createUser = async (user) => {
   try {
     const query = {
-      text: 'INSERT INTO users (email, first_name, last_name, password) VALUES ($1, $2, $3, $4) RETURNING *;',
-      values: [user.email, user.firstName, user.lastName, user.password],
+      text: 'INSERT INTO users (email, name, password) VALUES ($1, $2, $3) RETURNING *;',
+      values: [user.email, user.name, user.password],
     }
     const dbResponse = await db.query(query);
     return dbResponse.rows;
