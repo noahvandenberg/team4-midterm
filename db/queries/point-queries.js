@@ -118,11 +118,11 @@ exports.updatePointLocation = updatePointLocation
 
 
 // ADD
-const createPoint = async (userId, title, description, latitude, longitude) => {
+const createPoint = async (userId, mapId, title, description, latitude, longitude) => {
   try {
     const query = {
-      text: 'INSERT INTO points (creator_id, title, description, latitude, longitude) VALUES ($1, $2, $3, $4, $5) RETURNING *;',
-      values: [userId, title, description, latitude, longitude],
+      text: 'INSERT INTO points (creator_id, map_id, title, description, latitude, longitude) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
+      values: [userId, mapId, title, description, latitude, longitude],
     };
     const dbResponse = await db.query(query);
     return dbResponse.rows;

@@ -86,7 +86,7 @@ module.exports = (router) => {
   router.post('/', async(req, res) => {
     try {
       if (req.body.creator_id && req.body.title && req.body.description) {
-        const dbResponse = await createPoint(req.body.creator_id, req.body.title, req.body.description, req.body.latitude, req.body.longitude);
+        const dbResponse = await createPoint(req.body.creator_id, req.body.map_id, req.body.title, req.body.description, req.body.latitude, req.body.longitude);
         res.json(dbResponse);
       } else {
         res.json();
