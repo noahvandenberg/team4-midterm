@@ -40,7 +40,7 @@ const renderMap = function(mapId) {
 
 
     // handler to add marker to map as well as corresponding point to sidebar list
-    map.on("dblclick", function(pointer) {
+    map.once("dblclick", function(pointer) {
       // Add point to map
       const marker = L.marker(pointer.latlng).addTo(markers);
       console.log(marker);
@@ -60,6 +60,7 @@ const renderMap = function(mapId) {
       }
 
       addPointToEditForm(point);
+      $('#myEditnav form').removeAttr("hidden");
     });
 
   })
