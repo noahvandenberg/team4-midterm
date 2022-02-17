@@ -24,4 +24,7 @@ $(() => {
     } // else $('#myEditnav').width('0px');
   });
 
+  $('#myEditnav').on('click', 'input[type="button"]', function() {
+    console.log("hello world");
+  });
 });
