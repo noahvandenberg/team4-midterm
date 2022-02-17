@@ -12,7 +12,6 @@ const createFakePoint = () => {
     map_id: Math.floor(Math.random() * 250) + 1,
     title: faker.lorem.words(2),
     description: faker.lorem.words(20),
-    image_url: faker.image.city(),
     latitude: faker.address.latitude(49.006799, 49.377902, 14),
     longitude: faker.address.longitude(-122.121277, -123.280334, 14),
   };

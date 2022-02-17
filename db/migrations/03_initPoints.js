@@ -23,8 +23,6 @@ exports.up = function(knex) {
     table
       .string('description');
     table
-      .string('image_url');
-    table
       .float('latitude', 14, 10);
     table
       .float('longitude', 14, 10);
