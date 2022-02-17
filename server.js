@@ -51,8 +51,13 @@ app.use("/points", pointsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get("/", (req, res) => {
-  res.render("index");
+const {allMaps} = require('./db/map-queries')
+
+app.get("/", async(req, res) => {
+  const templateVars = {
+    maps: await allMaps(),
+  }
+  res.render("index", templateVars);
 });
 
 app.listen(PORT, () => {
