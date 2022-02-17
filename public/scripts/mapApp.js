@@ -133,3 +133,19 @@ const buildMapTiles = function() {
 
   return mapTiles;
 };
+
+// helper function to remove the map before redrawing it
+const removeMap = function() {
+  $('#map').remove();
+  const $newMap = $('<section>').attr("id", "map")
+  $('body').append($newMap);
+};
+
+// helper function to clear sidebar points
+const removePoints = function() {
+  $('#myEditnav form').nextAll('input').remove();
+};
+
+const toggleEditForm = function() {
+  $('#myEditnav form').removeAttr("hidden");
+};
