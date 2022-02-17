@@ -24,10 +24,12 @@ const renderMap = function(mapId) {
 
     // go through points and add them to the map
     data.points.forEach((point) => {
-      const lat = point.latitude;
-      const lng = point.longitude;
-      const latlng = { lat, lng };
-      const marker = L.marker(latlng).addTo(markers);
+      const marker = buildMarker(point);
+      marker.bindPopup(buildPopup(point));
+
+      // add to markers layer group
+      marker.addTo(markers);
+
       addPointToSidebar(point);
     });
 
@@ -93,3 +95,28 @@ const addPointToEditForm = function(point) {
   $editForm.children('input[name="latitude"]').val(point.latitude);
   $editForm.children('input[name="longitude"]').val(point.longitude);
 };
+
+// helper function to build marker
+// takes a point object and returns a marker with the point's lat and lng
+const buildMarker = function(point) {
+  // build latlng to pass into marker object
+  const lat = point.latitude;
+  const lng = point.longitude;
+  const latlng = { lat, lng };
+  const marker = L.marker(latlng)
+
+  return marker;
+}
+
+// helper function to build a popup for a marker based on a point object
+// takes a point object and returns a string with html for the popup
+const buildPopup = function(point) {
+  const popupString = `
+    <b>${point.title}</b>
+    <br>
+    ${point.description}
+    <br>
+    <img src="${point.image_url}">
+  `
+  return popupString;
+}
