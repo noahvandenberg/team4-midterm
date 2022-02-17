@@ -65,7 +65,6 @@ const renderMap = function(mapId) {
 
 // add map point to sidebar
 // takes a point object
-
 const addPointToSidebar = function(point) {
   const $newPoint = $('<input>').attr('type', 'button');
   $newPoint.attr('name', point.id);

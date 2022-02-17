@@ -10,8 +10,17 @@ $(() => {
   });
 
   $(document).on('click', '.mapName', (function() {
+    // $('#map').empty();
     renderMap($(this).attr('id'));
   }));
+
+  $('#logout').click(() => {
+    console.log('logout clicked');
+    $.ajax({
+      method: 'GET',
+      url: '/users/logout'})
+      .then(console.log('get call finished'));
+  });
 
   $('#openEditPane').click(() => {
     if ($('#myEditnav').width() === 0) {

@@ -35,7 +35,6 @@ h2 {
   align-items: flex-end;
   border-radius: 20px;
   margin: 2em;
-  width:45vw;
 }
 
 .form-title {
@@ -88,3 +87,15 @@ input[type='email'] {
   background-color: lightblue;
 }
 
+@media only screen and (max-width: 1255px) {
+  .container {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .form-title {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
