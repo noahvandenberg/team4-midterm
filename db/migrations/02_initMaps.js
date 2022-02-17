@@ -12,12 +12,10 @@ exports.up = function(knex) {
       .integer('creator_id')
       .references('id').inTable('users')
       .onDelete('CASCADE');
-    table
-      .timestamp('time_created').defaultTo(knex.fn.now());
-    table
-      .string('title');
-    table
-      .string('description');
+    table.timestamp('time_created').defaultTo(knex.fn.now());
+    table.string('title');
+    table.string('description');
+    table.string('image_url').defaultTo('http://placeimg.com/640/480/arch')
   });
 };
 

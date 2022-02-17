@@ -1,29 +1,30 @@
-// load .env data into process.env
+// Server Dependancies
 require("dotenv").config();
+const path = require('path');
+
+
 
 // Web server config
-const PORT = process.env.PORT || 8080;
-const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
+const PORT = process.env.PORT || 8080;
 const app = express();
+const db = require('./lib/db');
+
+
+
+// Express Middleware
 const morgan = require("morgan");
 const methodOverride = require('method-override');
 const cookieSession = require('cookie-session');
-const db = require('./public/scripts/db');
-
-// Load the logger first so all (static) HTTP requests are logged to STDOUT
-// 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
-app.use(morgan("dev"));
-app.use(methodOverride('_method'));
+const sassMiddleware = require("./lib/sass-middleware");
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
+app.use(methodOverride('_method'));
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1'],
-  httpOnly: false
+  keys: [process.env.COOKIE_SECRET_KEY]
 }));
-
 app.use(
   "/styles",
   sassMiddleware({
@@ -33,48 +34,33 @@ app.use(
   })
 );
 
-app.use(express.static("public"));
 
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const pointsRoutes = require("./routes/points");
-const mapsRoutes = require("./routes/maps");
 
-// Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-app.use("/users", usersRoutes(db));
-app.use("/maps", mapsRoutes(db));
-app.use("/points", pointsRoutes(db));
-// Note: mount other resources here, using the same pattern above
+// // User Routes
+const viewRouter = express.Router();
+const viewRoutes = require('./routes/viewRoutes');
+viewRoutes(viewRouter, db);
+app.use('/', viewRouter);
+app.use(express.static(path.join(__dirname, './public')));
 
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
 
-const {allMaps} = require('./public/scripts/map-queries')
+// API Routes
+const mapRouter = express.Router();
+const pointRouter = express.Router();
+const userRouter = express.Router();
+const mapAPIRoutes = require('./api/maps');
+const pointAPIRoutes = require('./api/points');
+const userAPIRoutes = require('./api/users');
+mapAPIRoutes(mapRouter);
+pointAPIRoutes(pointRouter);
+userAPIRoutes(userRouter);
+app.use('/api/maps', mapRouter);
+app.use('/api/points', pointRouter);
+app.use('/api/users', userRouter);
 
-app.get("/", async(req, res) => {
-  const templateVars = {
-    maps: await allMaps(),
-  }
-  res.render("index", templateVars);
-});
 
-app.get("/profile", async(req, res) => {
-  const templateVars = {
-    maps: await allMaps(),
-  }
-  res.render("profile", templateVars);
-});
 
-app.get("/map", async(req, res) => {
-  const templateVars = {
-    maps: await allMaps(),
-  }
-  res.render("map", templateVars);
-});
-
-app.listen(PORT, () => {
+// App Listening
+  app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
