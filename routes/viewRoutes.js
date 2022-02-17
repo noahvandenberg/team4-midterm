@@ -6,8 +6,11 @@ const { allMaps, findUserMaps} = require('../db/queries/map-queries')
 module.exports = (router, db) => {
 
   // Serve The Landing Page
-  router.get("/", (req, res) => {
-    res.render("../views/index");
+  router.get("/", async(req, res) => {
+    const templateVars = {
+      maps: await allMaps(),
+    }
+    res.render("../views/index", templateVars);
   });
 
   // Serve The Login Page
