@@ -110,7 +110,7 @@ const buildPopup = function(point) {
     <br>
     ${point.description}
     <br>
-    <img src="${point.image_url}">
+    <img src="${point.image_url}" width="300">
   `
   return popupString;
 }
