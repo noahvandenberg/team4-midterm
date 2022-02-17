@@ -40,6 +40,10 @@
   background-color: #D4EBF2;
 }
 
+.mapName:hover {
+  cursor: pointer;
+}
+
 #mySidenav {
   width: 200px; /* 10 width - change this with JavaScript */
   left: 0;
