@@ -10,8 +10,10 @@ const e = require("express");
  faker.setLocale('nl');
 
 const createFakeUser = () => {
+  const first_name = faker.name.firstName();
+  const last_name = faker.name.lastName();
   const name = `${faker.name.firstName()} ${faker.name.lastName()}`;
-  const email = faker.internet.email(first_name,last_name)
+  const email = faker.internet.email(first_name,last_name);
   return {
     email: email,
     name: name,
