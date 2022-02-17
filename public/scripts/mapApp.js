@@ -58,7 +58,7 @@ const renderMap = function(mapId) {
       // $('.points-list').append($newPoint);
     });
 
-  })
+  });
 
 };
 
