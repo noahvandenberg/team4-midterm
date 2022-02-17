@@ -14,12 +14,11 @@
   <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
       <div class="col-10 col-sm-8 col-lg-6">
-        <img src="http://placeimg.com/640/480/people" class="d-block mx-lg-auto img-fluid rounded " alt="Bootstrap Themes" loading="lazy" width="700" height="500">
+        <img src="http://placeimg.com/640/480/people" class="d-block mx-lg-auto img-fluid rounded " loading="lazy" width="500" height="500">
       </div>
       <div class="col-lg-6">
         <h1 class="display-4 fw-bold lh-1 mb-3">Hey, User Name</h1>
         <h1 class="display-6 fw-bold lh-1 mb-3">Welcome Back! </h1>
-        <!-- <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p> -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Map Count</button>
           <button type="button" class="btn btn-outline-secondary btn-lg px-4">Point Count</button>
@@ -28,16 +27,14 @@
     </div>
   </div>
 
-  <!-- Container Of Maps -->
+  <!-- Container Of Favourite Maps -->
   <div class="container px-4 py-5" id="custom-cards">
 
     <!-- Maps Title -->
-    <h2 class="pb-2 border-bottom">Explore</h2>
 
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 
       <!-- Map Card -->
-
 
       <% for(let map in maps) { %>
         <div class="col">
@@ -65,6 +62,38 @@
     </div>
 
   </div>
+
+  <!-- Container Of  Contributor Maps -->
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <h2 class="pb-2 mb-2 border-bottom">Contributions</h2>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <% for(let map in maps) { %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="<%= maps[map].image_url %>">
+              <div class="card-body">
+                <p><%= maps[map].title %></p>
+                <p class="card-text overflow-hidden"><%= maps[map].description %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+
+      </div>
+    </div>
+  </div>
+
+
 
   <%- include('partials/_footer') %>
 
