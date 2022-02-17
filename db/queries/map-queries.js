@@ -85,14 +85,29 @@ const updateMapDescription = async (mapId, description) => {
 }
 exports.updateMapDescription = updateMapDescription
 
+const updateMapImageUrl = async (mapId, imageURL) => {
+  try {
+    const query = {
+      text: 'UPDATE maps SET image_url = $1 WHERE id = $2 RETURNING *;',
+      values: [imageURL, mapId],
+    };
+    const dbResponse = await db.query(query);
+    return dbResponse.rows;
+  } catch (error) {
+    console.log(chalk.redBright('ERROR in map-queries.js @ updateMapDescription:', chalk.whiteBright(error)))
+    return res.status(500);
+  }
+}
+exports.updateMapImageUrl = updateMapImageUrl
+
 
 
 // ADD
-const createMap = async (userId,title,description) => {
+const createMap = async (userId,title,description, imageURL) => {
   try {
     const query = {
-      text: 'INSERT INTO maps (creator_id, title, description) VALUES ($1, $2, $3) RETURNING *;',
-      values: [userId, title, description],
+      text: 'INSERT INTO maps (creator_id, title, description, image_url) VALUES ($1, $2, $3, $4) RETURNING *;',
+      values: [userId, title, description, imageURL],
     };
     const dbResponse = await db.query(query);
     return dbResponse.rows;

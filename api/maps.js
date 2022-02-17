@@ -1,4 +1,4 @@
-const { allMaps, findMapsByUser, findMapById, updateMapTitle, updateMapDescription, createMap, deleteMap } = require('../db/queries/map-queries');
+const { allMaps, findMapsByUser, findMapById, updateMapTitle, updateMapDescription, createMap, deleteMap, updateMapImageUrl } = require('../db/queries/map-queries');
 const chalk = require('chalk');
 
 module.exports = (router) => {
@@ -62,6 +62,9 @@ module.exports = (router) => {
         if (req.body.description) {
           updateResponse = await updateMapDescription(req.params.id, req.body.description);
         }
+        if (req.body.imageURL) {
+          updateResponse = await updateMapImageUrl(req.params.id, req.body.imageURL);
+        }
         res.json(updateResponse);
       } else {
         res.json(dbResponse);
@@ -79,7 +82,7 @@ module.exports = (router) => {
   router.post('/', async(req, res) => {
     try {
       if (req.body.creator_id && req.body.title && req.body.description) {
-        const dbResponse = await createMap(req.body.creator_id, req.body.title, req.body.description);
+        const dbResponse = await createMap(req.body.creator_id, req.body.title, req.body.description, req.body.imageURL);
         res.json(dbResponse);
       } else {
         res.json();
