@@ -16,16 +16,12 @@ exports.up = function(knex) {
       .integer('map_id')
       .references('id').inTable('maps')
       .onDelete('CASCADE');
-    table
-      .timestamp('time_created').defaultTo(knex.fn.now());
-    table
-      .string('title');
-    table
-      .string('description');
-    table
-      .float('latitude', 14, 10);
-    table
-      .float('longitude', 14, 10);
+    table.timestamp('time_created').defaultTo(knex.fn.now());
+    table.string('title');
+    table.string('description');
+    table.string('image_url').defaultTo('http://placeimg.com/640/480/arch')
+    table.float('latitude', 14, 10);
+    table.float('longitude', 14, 10);
   });
 };
 
