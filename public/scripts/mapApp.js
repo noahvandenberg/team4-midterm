@@ -89,11 +89,11 @@ const addPointToSidebar = function(point) {
 
 // helper function to populate values in edit sidebar form
 const addPointToEditForm = function(point) {
-  const $editForm = $('#myEditNav');
-  $editForm.children('input[name="creator_id"]').val(point.creator_id);
-  $editForm.children('input[name="map_id"]').val(point.map_id);
-  $editForm.children('input[name="latitude"]').val(point.latitude);
-  $editForm.children('input[name="longitude"]').val(point.longitude);
+  const $editForm = $('#myEditnav');
+  $editForm.find('input[name="creator_id"]').val(point.creator_id);
+  $editForm.find('input[name="map_id"]').val(point.map_id);
+  $editForm.find('input[name="latitude"]').val(point.latitude);
+  $editForm.find('input[name="longitude"]').val(point.longitude);
 };
 
 // helper function to build marker
