@@ -3,9 +3,12 @@ $(document).ready(function() {
   // TODO: ajax call to get one of the logged in users' maps and render it
 
 });
+let currentMarkers;
+let currentMarkerId;
 
 // Draw the map to the screen
 // takes a mapId to query database
+// returns the map object
 const renderMap = function(mapId) {
   return $.ajax({
     method: "GET",
@@ -16,7 +19,6 @@ const renderMap = function(mapId) {
 
     // create layer group to hold markers
     const markers = L.featureGroup().addTo(map);
-
     // go through points and add them to the map
     data.points.forEach((point) => {
       const marker = buildMarker(point);
@@ -27,6 +29,7 @@ const renderMap = function(mapId) {
 
       addPointToSidebar(point);
     });
+    currentMarkers = markers
 
     map.fitBounds(markers.getBounds());
 
@@ -36,14 +39,15 @@ const renderMap = function(mapId) {
     map.doubleClickZoom.disable();
 
 
-    //--- map handlers ---
+    //--- assign map handlers ---
 
 
     // handler to add marker to map as well as corresponding point to sidebar list
-    map.once("dblclick", function(pointer) {
+    map.on("dblclick", function(pointer) {
       // Add point to map
       const marker = L.marker(pointer.latlng).addTo(markers);
-      console.log(marker);
+      currentMarkerId = marker._leaflet_id;
+      console.log(currentMarkerId);
 
       // build point object to send to sidebar form for submission
       // currently hard coded to user id 8
