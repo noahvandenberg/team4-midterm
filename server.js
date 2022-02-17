@@ -67,6 +67,13 @@ app.get("/profile", async(req, res) => {
   res.render("profile", templateVars);
 });
 
+app.get("/map", async(req, res) => {
+  const templateVars = {
+    maps: await allMaps(),
+  }
+  res.render("map", templateVars);
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
