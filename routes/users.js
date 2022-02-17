@@ -59,17 +59,18 @@ module.exports = (db) => {
           return;
         }
         req.session.userId = user.id;
-        console.log(user);
+        console.log(req.session.userId);
         res.render('navigation', {user: user});
       })
       .catch(err => res.send(err));
   });
 
   /**************************** Logout a user **************************/
-  router.get('/logout', (req, res) => {
+  router.post('/logout', (req, res) => {
+    console.log('in logout', req.session.userId);
     req.session.userId = null;
-    console.log('in logout');
-    res.render('index');
+    console.log(req.session.userId)
+    res.render('/index');
   });
 
   /****************************** Add a user ******************************/

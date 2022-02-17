@@ -19,8 +19,9 @@ app.use(methodOverride('_method'));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieSession({
-  name: 'cookie',
-  keys: ['key1']
+  name: 'session',
+  keys: ['key1'],
+  httpOnly: false
 }));
 
 app.use(

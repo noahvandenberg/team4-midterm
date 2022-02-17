@@ -1,3 +1,5 @@
+const req = require("express/lib/request");
+
 $(() => {
 
   $.get('/maps/8', (maps) => {
@@ -6,18 +8,21 @@ $(() => {
       mapTitles += '<div class="mapName" id="' + map.id + '">' + map.title + '</div>';
     }
     $('.mapDisplay').html(mapTitles);
+    // console.log(req.session.userId);
     renderMap(maps[0].id);
   });
 
   $(document).on('click', '.mapName', (function() {
-    // $('#map').empty();
+    $('#map').remove();
+    const $map = $('<section>').attr('id', 'map');
+    $('#mySidenav').after($map);
     renderMap($(this).attr('id'));
   }));
 
   $('#logout').click(() => {
     console.log('logout clicked');
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       url: '/users/logout'})
       .then(console.log('get call finished'));
   });
