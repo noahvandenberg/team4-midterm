@@ -1,5 +1,3 @@
-const req = require("express/lib/request");
-
 $(() => {
 
   $.get('/maps/8', (maps) => {
