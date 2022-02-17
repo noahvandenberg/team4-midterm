@@ -17,10 +17,10 @@ const renderMap = function(mapId) {
     // Sets Map and it's initial location
     const initialLat = data.points[0].latitude;
     const initialLng = data.points[0].longitude;
-    const map = L.map('map').setView([initialLat, initialLng], 13);
+    const map = L.map('map')//.setView([initialLat, initialLng], 11);
 
     // create layer group to hold markers
-    const markers = L.layerGroup().addTo(map);
+    const markers = L.featureGroup().addTo(map);
 
     // go through points and add them to the map
     data.points.forEach((point) => {
@@ -32,6 +32,9 @@ const renderMap = function(mapId) {
 
       addPointToSidebar(point);
     });
+
+    // set initial view of the map to the points populated
+    map.fitBounds(markers.getBounds());
 
     // Grabs titles (background images) for mapbox
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -120,3 +123,5 @@ const buildPopup = function(point) {
   `
   return popupString;
 }
+
+// helper function to find the middle of the max and min lat and lng of all map points
