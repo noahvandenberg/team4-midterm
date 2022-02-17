@@ -28,7 +28,6 @@ const mapPoints = function(mapId) {
   const values = [mapId];
   const strQuery = `
     SELECT * FROM points
-    JOIN maps ON map_id = maps.id
     WHERE map_id = $1;`;
   return db
     .query(strQuery, values)
