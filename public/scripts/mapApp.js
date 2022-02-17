@@ -5,9 +5,7 @@ $(document).ready(function() {
 });
 
 // Draw the map to the screen
-// Currently only draws the same map every time
-// Will take an array parameter with coordinates to set initial view
-//    first element will be latitude and second will be longitude
+// takes a mapId to query database
 const renderMap = function(mapId) {
   // hardcoded map for now
   mapId = 7;
@@ -56,14 +54,21 @@ const renderMap = function(mapId) {
       const marker = L.marker(pointer.latlng).addTo(markers);
       console.log(marker);
 
+      // build point object to send to sidebar form for submission
+      // currently hard coded to user id 8
+      const creator_id = 8;
+      const map_id = mapId;
+      const latitude = pointer.latlng.lat;
+      const longitude = pointer.latlng.lng;
 
-      // // database query to create new point goes here
+      const point = {
+        creator_id,
+        map_id,
+        latitude,
+        longitude
+      }
 
-      // // Add corresponding point element to sidebar list
-      // const $newPoint = $('<input>').attr('type', 'button');
-      // $newPoint.attr('name', Math.floor(Math.random() * 1000));
-      // $newPoint.val("a new point");
-      // $('.points-list').append($newPoint);
+      addPointToEditForm(point);
     });
 
   })
@@ -78,4 +83,13 @@ const addPointToSidebar = function(point) {
   $newPoint.attr('name', point.id);
   $newPoint.val(point.title);
   $('#myEditnav').append($newPoint);
+};
+
+// helper function to populate values in edit sidebar form
+const addPointToEditForm = function(point) {
+  const $editForm = $('#myEditNav');
+  $editForm.children('input[name="creator_id"]').val(point.creator_id);
+  $editForm.children('input[name="map_id"]').val(point.map_id);
+  $editForm.children('input[name="latitude"]').val(point.latitude);
+  $editForm.children('input[name="longitude"]').val(point.longitude);
 };
