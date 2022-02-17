@@ -57,6 +57,13 @@ app.get("/", async(req, res) => {
   const templateVars = {
     maps: await allMaps(),
   }
+  res.render("index", templateVars);
+});
+
+app.get("/profile", async(req, res) => {
+  const templateVars = {
+    maps: await allMaps(),
+  }
   res.render("profile", templateVars);
 });
 
