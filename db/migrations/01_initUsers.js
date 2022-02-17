@@ -13,7 +13,7 @@ exports.up = function(knex) {
       .notNullable();
     table.string('name').notNullable();
     table.string('password').notNullable();
-    table.string('profile_image_url').defaultTo('http://placeimg.com/640/480/people')
+    table.string('image_url').defaultTo('http://placeimg.com/640/480/people');
   });
 };
 
