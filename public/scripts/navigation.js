@@ -25,4 +25,31 @@ $(() => {
       $('#myEditnav').width('200px');
     } //else $('#myEditnav').width('0px');
   });
+
+  $('#myEditnav form').submit(function(event) {
+    event.preventDefault();
+    console.log($(this).children('input[name="creator_id"]').val());
+
+    // build point object to send to database
+    const creator_id = $(this).children('input[name="creator_id"]').val();
+    const map_id = $(this).children('input[name="map_id"]').val();
+    const latitude = $(this).children('input[name="latitude"]').val();
+    const longitude = $(this).children('input[name="longitude"]').val();
+    const title = $(this).children('input[name="title"]').val();
+    const description = $(this).children('input[name="description"]').val();
+    const image_url = $(this).children('input[name="image_url"]').val();
+
+    const data = {
+      creator_id,
+      map_id,
+      latitude,
+      longitude,
+      title,
+      description,
+      image_url
+    };
+
+    console.log(data)
+
+  })
 });
