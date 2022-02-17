@@ -13,11 +13,6 @@ module.exports = (router, db) => {
     res.render("../views/index", templateVars);
   });
 
-  // Serve The Login Page
-  router.get("/login", (req,res) => {
-
-  });
-
   // Server The General Map Page
   router.get("/maps", async (req,res) => {
 
@@ -37,5 +32,7 @@ module.exports = (router, db) => {
   router.post("/logout", (req,res) => {
 
   });
+
+
 
 }
