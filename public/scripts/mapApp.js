@@ -30,6 +30,7 @@ const renderMap = function(mapId) {
       const lng = point.longitude;
       const latlng = { lat, lng };
       const marker = L.marker(latlng).addTo(markers);
+      addPointToSidebar(point);
     });
 
     // Grabs titles (background images) for mapbox
@@ -67,8 +68,14 @@ const renderMap = function(mapId) {
 
   })
 
-
-
 };
 
+// add map point to sidebar
+// takes a point object
 
+const addPointToSidebar = function(point) {
+  const $newPoint = $('<input>').attr('type', 'button');
+  $newPoint.attr('name', point.id);
+  $newPoint.val(point.title);
+  $('#myEditnav').append($newPoint);
+};
