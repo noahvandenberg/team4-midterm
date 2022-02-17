@@ -7,9 +7,6 @@ $(document).ready(function() {
 // Draw the map to the screen
 // takes a mapId to query database
 const renderMap = function(mapId) {
-  // hardcoded map for now
-  mapId = 7;
-
   return $.ajax({
     method: "GET",
     url: `/points/${mapId}`
@@ -34,23 +31,16 @@ const renderMap = function(mapId) {
     map.fitBounds(markers.getBounds());
 
     // Grabs titles (background images) for mapbox
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      id: 'mapbox/streets-v11',
-      tileSize: 512,
-      zoomOffset: -1,
-      accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
-    }).addTo(map);
+    const mapTiles = buildMapTiles().addTo(map);
 
     map.doubleClickZoom.disable();
 
 
+    //--- map handlers ---
+
+
     // handler to add marker to map as well as corresponding point to sidebar list
     map.on("dblclick", function(pointer) {
-
-      console.log(pointer);
-
       // Add point to map
       const marker = L.marker(pointer.latlng).addTo(markers);
       console.log(marker);
@@ -124,3 +114,21 @@ const buildPopup = function(point) {
   `
   return popupString;
 }
+
+// helper function to generate map tiles
+// returns a leaflet tile layer object
+const buildMapTiles = function() {
+  const mapTiles = L.tileLayer(
+    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
+    {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
+    }
+  );
+
+  return mapTiles;
+};
