@@ -1,4 +1,4 @@
-const { findUserById, findUserByEmail, deleteUser, allUsers, createUser, updateUserEmail, updateUserFirstName, updateUserLastName, updateUserPassword } = require('../db/queries/user-queries');
+const { findUserById, findUserByEmail, deleteUser, allUsers, createUser, updateUserEmail, updateUserName, updateUserPassword, updateUserImageURL } = require('../db/queries/user-queries');
 const chalk = require('chalk');
 
 module.exports = (router) => {
@@ -43,14 +43,14 @@ module.exports = (router) => {
         if (req.body.email) {
           updateResponse = await updateUserEmail(req.params.id, req.body.email);
         }
-        if (req.body.firstName) {
-          updateResponse = await updateUserFirstName(req.params.id, req.body.firstName);
-        }
-        if (req.body.lastName) {
-          updateResponse = await updateUserLastName(req.params.id, req.body.lastName);
+        if (req.body.name) {
+          updateResponse = await updateUserName(req.params.id, req.body.name);
         }
         if (req.body.password) {
           updateResponse = await updateUserPassword(req.params.id, req.body.password);
+        }
+        if (req.body.imageURL) {
+          updateResponse = await updateUserImageURL(req.params.id, req.body.imageURL);
         }
         res.json(updateResponse);
       } else {

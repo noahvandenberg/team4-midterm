@@ -70,40 +70,25 @@ const updateUserEmail = async (userID,newEmail) => {
 };
 exports.updateUserEmail = updateUserEmail
 
-const updateUserFirstName = async (userID,newFirstName) => {
+const updateUserName = async (userID,newName) => {
   try {
     const query = {
-      text: 'UPDATE users SET first_name = $1 WHERE id = $2 RETURNING *;',
-      values: [newFirstName, userID],
+      text: 'UPDATE users SET name = $1 WHERE id = $2 RETURNING *;',
+      values: [newName, userID],
     }
     const dbResponse = await db.query(query);
     return dbResponse.rows;
   } catch (error) {
-    console.log(chalk.redBright('ERROR in user-queries.js @ updateUserFirstName:', chalk.whiteBright(error)))
+    console.log(chalk.redBright('ERROR in user-queries.js @ updateUserName:', chalk.whiteBright(error)))
     return res.status(500);
   }
 };
-exports.updateUserFirstName = updateUserFirstName
-
-const updateUserLastName = async (userID,newLastName) => {
-  try {
-    const query = {
-      text: 'UPDATE users SET last_name = $1 WHERE id = $2 RETURNING *;',
-      values: [newLastName, userID],
-    }
-    const dbResponse = await db.query(query);
-    return dbResponse.rows;
-  } catch (error) {
-    console.log(chalk.redBright('ERROR in user-queries.js @ updateUserLastName:', chalk.whiteBright(error)))
-    return res.status(500);
-  }
-};
-exports.updateUserLastName = updateUserLastName
+exports.updateUserName = updateUserName
 
 const updateUserPassword = async (userID,newPassword) => {
   try {
     const query = {
-      text: 'UPDATE users SET first_name = $1 WHERE id = $2 RETURNING *;',
+      text: 'UPDATE users SET password = $1 WHERE id = $2 RETURNING *;',
       values: [newPassword, userID],
     }
     const dbResponse = await db.query(query);
@@ -115,6 +100,20 @@ const updateUserPassword = async (userID,newPassword) => {
 };
 exports.updateUserPassword = updateUserPassword
 
+const updateUserImageURL = async (userID,newImageURL) => {
+  try {
+    const query = {
+      text: 'UPDATE users SET image_url = $1 WHERE id = $2 RETURNING *;',
+      values: [newImageURL, userID],
+    }
+    const dbResponse = await db.query(query);
+    return dbResponse.rows;
+  } catch (error) {
+    console.log(chalk.redBright('ERROR in user-queries.js @ updateUserImageURL:', chalk.whiteBright(error)))
+    return res.status(500);
+  }
+};
+exports.updateUserImageURL = updateUserImageURL
 
 
 // ADD
