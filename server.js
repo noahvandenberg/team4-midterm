@@ -19,7 +19,7 @@ app.use(methodOverride('_method'));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieSession({
-  name: 'session',
+  name: 'cookie',
   keys: ['key1']
 }));
 
@@ -37,9 +37,7 @@ app.use(express.static("public"));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
-const mapRenderRoute = require("./routes/mapRender");
 const pointsRoutes = require("./routes/points");
-
 const mapsRoutes = require("./routes/maps");
 
 // Mount all resource routes
@@ -47,8 +45,6 @@ const mapsRoutes = require("./routes/maps");
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/points", pointsRoutes(db));
-
-app.use("/map", mapRenderRoute());
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -57,10 +53,6 @@ app.use("/map", mapRenderRoute());
 
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-app.get("/maps", (req, res) => {
-  res.render("maprender");
 });
 
 app.listen(PORT, () => {

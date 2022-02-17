@@ -1,6 +1,66 @@
 // See: https://sass-lang.com/
 
-body,
-html {
-  margin: 0;
+/* The side navigation menu */
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  align-items:stretch;
+  height: 100%; /* 100% Full-height */
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Stay on top */
+  top: 0; /* Stay at the top */
+  background-color: #72bcd4;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  font-size: 1.5em;
+
+}
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.mapDisplay {
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  align-items: stretch;
+  font-style: italic;
+  text-align: center;
+  font-size: 0.8em;;
+  // padding-left: 0.5em;
+  // padding-right: 0.5em;
+}
+
+.mapDisplay > div:nth-of-type(odd) {
+  background-color: #D4EBF2;
+}
+
+.mapName:hover {
+  cursor: pointer;
+}
+
+#mySidenav {
+  width: 200px; /* 10 width - change this with JavaScript */
+  left: 0;
+}
+
+#myEditnav {
+  width: 0px; /* 0 width - change this with JavaScript */
+  right: 0;
+}
+
+// #openEditPane {
+//   display: none;
+// }
+
+#map {
+  background-color: lightgray;
+  height: 100vh;
+  width: 100vw;
+  z-index:10;
 }

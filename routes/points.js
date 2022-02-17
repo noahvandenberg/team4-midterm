@@ -28,7 +28,7 @@ module.exports = (db) => {
   router.get("/:id", (req, res) => {
     mapPoints(req.params.id)
       .then(points => {
-        res.json({ points });
+        res.send(points);
       })
       .catch(err => {
         res
