@@ -6,16 +6,15 @@
 // Password is being stored intentionally as text for development purposes and will be converted to bcyrpt hash
 
  const { faker } = require('@faker-js/faker');
+const e = require("express");
  faker.setLocale('nl');
 
 const createFakeUser = () => {
-  const last_name = faker.name.lastName();
-  const first_name = faker.name.firstName();
+  const name = `${faker.name.firstName()} ${faker.name.lastName()}`;
   const email = faker.internet.email(first_name,last_name)
   return {
     email: email,
-    first_name: first_name,
-    last_name: last_name,
+    name: name,
     password: 'password'
   };
 }

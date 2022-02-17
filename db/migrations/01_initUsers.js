@@ -11,9 +11,9 @@ exports.up = function(knex) {
     table
       .string("email")
       .notNullable();
-    table.string('first_name').notNullable();
-    table.string('last_name').notNullable();
+    table.string('name').notNullable();
     table.string('password').notNullable();
+    table.string('profile_image_url').defaultTo('http://placeimg.com/640/480/people')
   });
 };
 
