@@ -70,11 +70,11 @@ exports.findPointById = findPointById;
 
 
 // EDIT
-const updatePointTitle = async(mapId, title) => {
+const updatePointTitle = async(pointId, title) => {
   try {
     const query = {
-      text: 'UPDATE maps SET title = $1 WHERE id = $2 RETURNING *;',
-      values: [title, mapId],
+      text: 'UPDATE points SET title = $1 WHERE id = $2 RETURNING *;',
+      values: [title, pointId],
     };
     const dbResponse = await db.query(query);
     return dbResponse.rows;

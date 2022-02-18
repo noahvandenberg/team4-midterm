@@ -7,7 +7,7 @@ module.exports = (router) => {
   router.get('/', async(req, res) => {
     try {
       const dbResponse = await allPoints();
-      res.json(dbResponse);
+      res.status(200);
     } catch (error) {
       console.log(chalk.redBright('ERROR in points.js @ GET \'/\':', chalk.whiteBright(error)));
       return res.status(500);
@@ -18,9 +18,9 @@ module.exports = (router) => {
     try {
       const dbResponse = await findPointsByMap(req.params.id);
       if (dbResponse.length > 0) {
-        res.json(dbResponse);
+        res.status(200);
       } else {
-        res.json(dbResponse);
+        res.status(200);
         throw 'User Does Not Exist';
       }
     } catch (error) {
@@ -36,9 +36,9 @@ module.exports = (router) => {
     try {
       const dbResponse = await findPointById(req.params.id);
       if (dbResponse.length > 0) {
-        res.json(dbResponse);
+        res.status(200);
       } else {
-        res.json(dbResponse);
+        res.status(200);
         throw 'Point Does Not Exist';
       }
     } catch (error) {
@@ -50,10 +50,10 @@ module.exports = (router) => {
 
 
   // // EDIT
-  router.put('/:id', async(req, res) => {
+  router.post('/:id', async(req, res) => {
     try {
       const dbResponse = await findPointById(req.params.id);
-      // console.log(req.body)
+      console.log(req.body)
       if (dbResponse.length > 0) {
         let updateResponse = dbResponse;
         if (req.body.title) {
@@ -68,9 +68,9 @@ module.exports = (router) => {
         if (req.body.description) {
           updateResponse = await updatePointLocation(req.params.id, req.body.latitude, req.body.longitude);
         }
-        res.json(updateResponse);
+        res.redirect(`/map/${req.body.map_id}`)
       } else {
-        res.json(dbResponse);
+        res.status(200);
         throw 'Point Does Not Exist';
       }
     } catch (error) {
@@ -86,7 +86,7 @@ module.exports = (router) => {
     try {
       if (req.body.creator_id && req.body.title && req.body.description) {
         const dbResponse = await createPoint(req.body.creator_id, req.body.map_id, req.body.title, req.body.description, req.body.latitude, req.body.longitude);
-        res.json(dbResponse);
+        res.redirect(`/map/${req.body.map_id}`)
       } else {
         res.json();
         throw 'Missing Required Parameter';
@@ -108,7 +108,7 @@ module.exports = (router) => {
         console.log(req.body)
         res.redirect(`/map/${req.body.map_id}`);
       } else {
-        res.json(dbResponse);
+        res.status(200);
         throw 'Point Does Not Exist';
       }
     } catch (error) {

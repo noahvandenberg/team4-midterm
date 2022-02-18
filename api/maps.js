@@ -7,7 +7,7 @@ module.exports = (router) => {
   router.get('/', async(req, res) => {
     try {
       const dbResponse = await allMaps();
-      res.json(dbResponse);
+      res.status(200)
     } catch (error) {
       console.log(chalk.redBright('ERROR in maps.js @ GET \'/\':', chalk.whiteBright(error)));
       return res.status(500);
@@ -18,9 +18,9 @@ module.exports = (router) => {
     try {
       const dbResponse = await findMapsByUser(req.params.id);
       if (dbResponse.length > 0) {
-        res.json(dbResponse);
+        res.status(200)
       } else {
-        res.json(dbResponse);
+        res.status(200)
         throw 'User Does Not Exist';
       }
     } catch (error) {
@@ -36,9 +36,9 @@ module.exports = (router) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       if (dbResponse.length > 0) {
-        res.json(dbResponse);
+        res.status(200)
       } else {
-        res.json(dbResponse);
+        res.status(200)
         throw 'Map Does Not Exist';
       }
     } catch (error) {
@@ -50,10 +50,9 @@ module.exports = (router) => {
 
 
   // // EDIT
-  router.put('/:id', async(req, res) => {
+  router.post('/:id', async(req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
-      // console.log(req.body)
       if (dbResponse.length > 0) {
         let updateResponse = dbResponse;
         if (req.body.title) {
@@ -65,9 +64,9 @@ module.exports = (router) => {
         if (req.body.imageURL) {
           updateResponse = await updateMapImageUrl(req.params.id, req.body.imageURL);
         }
-        res.json(updateResponse);
+        res.redirect(`/map`)
       } else {
-        res.json(dbResponse);
+        res.status(200)
         throw 'Map Does Not Exist';
       }
     } catch (error) {
@@ -81,10 +80,9 @@ module.exports = (router) => {
   // ADD
   router.post('/', async(req, res) => {
     try {
-      console.log(req.body)
       if (req.body.creator_id && req.body.title && req.body.description) {
         const dbResponse = await createMap(req.body.creator_id, req.body.title, req.body.description, req.body.imageURL);
-        res.json(dbResponse);
+        res.redirect('/map')
       } else {
         res.json();
         throw 'Missing Required Parameter';
@@ -99,7 +97,7 @@ module.exports = (router) => {
     try {
       if (req.body.user_id && req.body.map_id) {
         const dbResponse = await createFavouriteMap(req.body.user_id, req.body.map_id);
-        res.json(dbResponse);
+        res.status(200)
       } else {
         res.json();
         throw 'Missing Required Parameter';
@@ -120,7 +118,7 @@ module.exports = (router) => {
         const deleteResponse = await deleteMap(req.params.id);
         res.redirect('/map')
       } else {
-        res.json(dbResponse);
+        res.status(200)
         throw 'Map Does Not Exist';
       }
     } catch (error) {

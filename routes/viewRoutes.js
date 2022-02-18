@@ -20,9 +20,9 @@ module.exports = (router, db) => {
     const templateVars = {
       isLoggedIn: isLoggedIn(true),
       // Should Be parsed cookie
-      userObj: await findUserById(10),
+      userObj: await findUserById(11),
       selectedMap: false,
-      sideMenuItems: await findMapsByUser(10)
+      sideMenuItems: await findMapsByUser(11)
     }
     res.render("../views/map", templateVars);
   });
@@ -32,7 +32,7 @@ module.exports = (router, db) => {
     const templateVars = {
       isLoggedIn: isLoggedIn(true),
       // Should Be parsed cookie
-      userObj: await findUserById(10),
+      userObj: await findUserById(11),
       selectedMap: await findMapById(req.params.map_id),
       sideMenuItems: await findPointsByMap(req.params.map_id)
     }
@@ -44,10 +44,10 @@ module.exports = (router, db) => {
     const templateVars = {
       isLoggedIn: isLoggedIn(true),
       // Should Be parsed cookie
-      userObj: await findUserById(10),
+      userObj: await findUserById(11),
       selectedMap: false,
-      maps: await findMapsByUser(10),
-      favourites: await findMapsByUser(10)
+      maps: await findMapsByUser(11),
+      favourites: await findMapsByUser(11)
     }
     res.render("../views/profile", templateVars);
   });
