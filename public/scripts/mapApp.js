@@ -30,7 +30,7 @@ const renderMap = function(mapId) {
 
       addPointToSidebar(point);
     });
-    currentMarkers = markers
+    currentMarkers = markers;
 
     map.fitBounds(markers.getBounds());
 

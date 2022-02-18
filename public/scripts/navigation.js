@@ -2,21 +2,23 @@ $(() => {
 
   $.get(`/api/maps/${window.location.pathname.replace("/maps/", "")}`, (map) => {
     $.get(`/api/points/m/${map[0].id}`, (points) => {
-      console.log(points.length);
       let pointInfo = '';
       for (const point of points) {
         pointInfo += `
-        <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true" id="mapPoint">
+        <a href="#" class="list-group-item list-group-item-action py-3 lh-tight mapPOI" aria-current="true" id="mapPoint${point.id}">
         <div class="d-flex w-100 align-items-center justify-content-between">
           <strong class="mb-1">${point.title}</strong>
         </div>
         <div class="col-10 mb-1 small">${point.description}</div>
         </a>`;
-        console.log(point.title);
         $('#mapPointsList').html(pointInfo);
       }
     });
     renderMap(map[0].id);
+  });
+
+  $(document).click(function() {
+    console.log($(this));
   });
 
   $(document).on('click', '.mapName', (function() {
