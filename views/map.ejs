@@ -46,24 +46,32 @@
     var marker1 = L.marker([48.13068254312452, -122.14892282607158]).addTo(map);
 
     // Grabs Map Id From URL
+
     const mapId = window.location.pathname.split("/").pop()
 
-    $( document ).ready(function() {
+    // A little rats nesty but who doesn't like friends at home :) Time 11:20 w/ > 6 Hrs of Sleep
+    if (mapId !== '') {
 
-      // Calls api to get a list of points for that mapId
-      $.ajax({
-        "url": `/api/points/m/${mapId}`,
-        "method": "GET",
-      }).done(function (response) {
+      $( document ).ready(function() {
 
-        // For each point on the map create a marker
-        response.forEach(element => {
-          L.marker([element.latitude, element.longitude]).addTo(map);
+        // Calls api to get a list of points for that mapId
+        $.ajax({
+          "url": `/api/points/m/${mapId}`,
+          "method": "GET",
+        }).done(function (response) {
+
+          // For each point on the map create a marker
+          response.forEach(element => {
+            L.marker([element.latitude, element.longitude]).addTo(map);
+          });
+
         });
 
       });
 
-    });
+    }
+
+
 
   </script>
 
