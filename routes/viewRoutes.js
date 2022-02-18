@@ -1,7 +1,7 @@
 const { allPoints, mapPointsByUser, mapPoints, findPoint } = require('../db/queries/point-queries')
 const { allUsers, findUser } = require('../db/queries/user-queries')
 const { allMaps, findUserMaps} = require('../db/queries/map-queries')
-const { randomSelection } = require('../helpers/helpers')
+const { randomSelection, isLoggedIn } = require('../helpers/helpers')
 
 
 module.exports = (router, db) => {
@@ -10,6 +10,7 @@ module.exports = (router, db) => {
   router.get("/", async(req, res) => {
     const templateVars = {
       maps: randomSelection(await allMaps(), 12),
+      isLoggedIn: isLoggedIn(false),
     }
     res.render("../views/index", templateVars);
   });
@@ -18,6 +19,7 @@ module.exports = (router, db) => {
   router.get("/map", async (req,res) => {
     const templateVars = {
       maps: randomSelection(await allMaps(), 20),
+      isLoggedIn: isLoggedIn(true),
     }
     res.render("../views/map", templateVars);
   });
