@@ -1,12 +1,7 @@
 $(() => {
 
-  $.get('/maps/8', (data) => {
-    let mapTitles = '';
-    for (const map of data.maps) {
-      mapTitles += '<div class="mapName" id="#' + map.id + '">' + map.title + '</div>';
-    }
-    $('.mapDisplay').html(mapTitles);
-    renderMap(data.maps[0].id);
+  $.get(`/api/maps/${window.location.pathname.replace("/maps", "")}`, (data) => {
+    renderMap(data[0].id);
   });
 
   $(document).on('click', '.mapName', (function() {
@@ -26,10 +21,9 @@ $(() => {
     } //else $('#myEditnav').width('0px');
   });
 
-  // handler to submit
+  // handler to submit point to database
   $('#myEditnav form').submit(function(event) {
     event.preventDefault();
-    console.log($(this).children('input[name="creator_id"]').val());
 
     // build point object to send to database
     const creator_id = $(this).children('input[name="creator_id"]').val();
@@ -54,13 +48,14 @@ $(() => {
 
     $.ajax({
       method: "POST",
-      url: "/points/",
+      url: "/api/points",
       timeout: 0,
       data
     }).done(function(res) {
+      console.log(res)
       removeMap();
       removePoints();
-      renderMap(res.point.map_id);
+      renderMap(res[0].map_id);
       $('#myEditnav form').attr("hidden", "");
     });
 
