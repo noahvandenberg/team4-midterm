@@ -2,21 +2,50 @@
 
 /* The side navigation menu */
 .sidenav {
+  display: flex;
+  flex-direction: column;
+  align-items:stretch;
   height: 100%; /* 100% Full-height */
   position: fixed; /* Stay in place */
   z-index: 100; /* Stay on top */
   top: 0; /* Stay at the top */
-  background-color: #72bcd4; /* Black*/
+  background-color: #72bcd4;
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  font-size: 1.5em;
+
+}
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.mapDisplay {
   display: flex;
   flex-direction: column;
-  align-items:stretch;
+  justify-items: flex-start;
+  align-items: stretch;
+  font-style: italic;
+  text-align: center;
+  font-size: 0.8em;;
+  // padding-left: 0.5em;
+  // padding-right: 0.5em;
+}
+
+.mapDisplay > div:nth-of-type(odd) {
+  background-color: #D4EBF2;
+}
+
+.mapName:hover {
+  cursor: pointer;
 }
 
 #mySidenav {
-  width: 10px; /* 10 width - change this with JavaScript */
+  width: 200px; /* 10 width - change this with JavaScript */
   left: 0;
 }
 
@@ -25,40 +54,9 @@
   right: 0;
 }
 
-/* The navigation menu links */
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: darkblue;
-}
-
-/* Position and style the close button (top right corner) */
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-#mySidenav.closebtn {
-  right: 25px;
-}
-
-#myEditnav.closebtn {
-  left: 25px;
-}
-
-#openEditPane {
-  display: none;
-}
+// #openEditPane {
+//   display: none;
+// }
 
 #map {
   background-color: lightgray;

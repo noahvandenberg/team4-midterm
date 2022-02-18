@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Home Page</title>
+  <%- include('partials/_head') %>
+  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+</head>
+
+<body>
+
+  <%- include('partials/_header') %>
+
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="http://placeimg.com/640/480/people" class="d-block mx-lg-auto img-fluid rounded " loading="lazy" width="500" height="500">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold lh-1 mb-3">Hey, User Name</h1>
+        <h1 class="display-6 fw-bold lh-1 mb-3">Welcome Back! </h1>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Map Count</button>
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Point Count</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container Of Favourite Maps -->
+  <div class="container px-4 py-5" id="custom-cards">
+
+    <!-- Maps Title -->
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+
+      <!-- Map Card -->
+
+      <% for(let map in maps) { %>
+        <div class="col">
+          <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('http://placeimg.com/640/480/arch');">
+            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+              <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><%= maps[map].title %></h2>
+              <ul class="d-flex list-unstyled mt-auto">
+                <li class="me-auto">
+                  <img src="http://placeimg.com/640/480/people" alt="Profile Pic" class="rounded-circle border border-white" width="32" height="32">
+                </li>
+                <li class="d-flex align-items-center me-3">
+                  <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                  <small>Earth</small>
+                </li>
+                <li class="d-flex align-items-center">
+                  <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
+                  <small>3d</small>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% } %>
+
+    </div>
+
+  </div>
+
+  <!-- Container Of  Contributor Maps -->
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <h2 class="pb-2 mb-2 border-bottom">Contributions</h2>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <% for(let map in maps) { %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="<%= maps[map].image_url %>">
+              <div class="card-body">
+                <p><%= maps[map].title %></p>
+                <p class="card-text overflow-hidden"><%= maps[map].description %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <%- include('partials/_footer') %>
+
+</body>
+
+</html>

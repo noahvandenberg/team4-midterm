@@ -70,7 +70,7 @@ const renderMap = function(mapId) {
       $('#myEditnav form').removeAttr("hidden");
     });
 
-  })
+  });
 
 };
 
