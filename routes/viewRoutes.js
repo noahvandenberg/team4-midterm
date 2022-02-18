@@ -1,6 +1,6 @@
 const { allPoints, findPointById, findPointsByMap } = require('../db/queries/point-queries')
 const { allUsers, findUserById } = require('../db/queries/user-queries')
-const { allMaps, findMapById} = require('../db/queries/map-queries')
+const { allMaps, findMapById, findMapsByUser} = require('../db/queries/map-queries')
 const { randomSelection, isLoggedIn } = require('../helpers/helpers')
 
 
@@ -40,6 +40,20 @@ module.exports = (router, db) => {
     console.log(templateVars)
     res.render("../views/map", templateVars);
   });
+
+  // Serve A Specific Profile Page
+  router.get("/profile", async (req,res) => {
+    const templateVars = {
+      isLoggedIn: isLoggedIn(true),
+      // Should Be parsed cookie
+      userObj: await findUserById(10),
+      selectedMap: false,
+      maps: await findMapsByUser(10)
+    }
+    console.log(templateVars)
+    res.render("../views/profile", templateVars);
+  });
+
 
   // Login A User
   router.post("/login", (req,res) => {
