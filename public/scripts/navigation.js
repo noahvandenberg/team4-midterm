@@ -100,6 +100,12 @@ $(() => {
       "timeout": 0,
     }).done(function(res) {
       addPointToEditForm(res[0]);
+      currentMarkers.eachLayer(function(marker) {
+        if (marker.point_id == res[0].id) {
+          marker.openPopup();
+          console.log("the ids match");
+        }
+      })
     })
   });
 });
