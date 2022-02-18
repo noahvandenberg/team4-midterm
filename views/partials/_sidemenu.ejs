@@ -1,19 +1,24 @@
 <div id="sidemenu" class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
   <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-    <i class="fa-solid fa-book-atlas me-2 fs-4"></i>
-    <span class="fs-3 fw-semibold">Maps List</span>
+    <% if (selectedMap) { %>
+      <i class="fa-solid fa-location-dot me-2 fs-4"></i>
+      <span class="fs-3 fw-semibold">Points for <i><%= selectedMap[0].title %></i></span>
+    <%} else { %>
+      <i class="fa-solid fa-book-atlas me-2 fs-4"></i>
+      <span class="fs-3 fw-semibold">Maps For <i><%= userObj[0].name %></i></span>
+    <%} %>
   </a>
   <div class="list-group list-group-flush border-bottom scrollarea">
 
     <!-- add 'active' bootstrap class for current map -->
 
-    <% for(let map in maps) { %>
-      <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
+    <% for(let item in sideMenuItems) { %>
+      <a href="/map/<%= sideMenuItems[item].id %>" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
         <div class="d-flex w-100 align-items-center justify-content-between">
-          <strong class="mb-1"><%= maps[map].title %></strong>
+          <strong class="mb-1"><%= sideMenuItems[item].title %></strong>
           <small>Wed</small>
         </div>
-        <div class="col-10 mb-1 small"><%= maps[map].description %></div>
+        <div class="col-10 mb-1 small"><%= sideMenuItems[item].description %></div>
       </a>
     <% } %>
 

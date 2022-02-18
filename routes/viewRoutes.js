@@ -1,6 +1,6 @@
-const { allPoints, mapPointsByUser, mapPoints, findPoint } = require('../db/queries/point-queries')
-const { allUsers, findUser } = require('../db/queries/user-queries')
-const { allMaps, findUserMaps} = require('../db/queries/map-queries')
+const { allPoints, findPointById, findPointsByMap } = require('../db/queries/point-queries')
+const { allUsers, findUserById } = require('../db/queries/user-queries')
+const { allMaps, findMapById} = require('../db/queries/map-queries')
 const { randomSelection, isLoggedIn } = require('../helpers/helpers')
 
 
@@ -18,20 +18,27 @@ module.exports = (router, db) => {
   // Server The General Map Page
   router.get("/map", async (req,res) => {
     const templateVars = {
-      maps: randomSelection(await allMaps(), 20),
       isLoggedIn: isLoggedIn(true),
+      // Should Be parsed cookie
+      userObj: await findUserById(10),
+      selectedMap: false,
+      sideMenuItems: randomSelection(await allMaps(), 20)
     }
+    console.log(templateVars)
     res.render("../views/map", templateVars);
   });
 
-  // Server The General Map Page
-  router.get("/maps", async (req,res) => {
-
-  });
-
   // Serve A Specific Map Page
-  router.get("/maps:map_id", (req,res) => {
-
+  router.get("/map/:map_id", async (req,res) => {
+    const templateVars = {
+      isLoggedIn: isLoggedIn(true),
+      // Should Be parsed cookie
+      userObj: await findUserById(10),
+      selectedMap: await findMapById(req.params.map_id),
+      sideMenuItems: await findPointsByMap(req.params.map_id)
+    }
+    console.log(templateVars)
+    res.render("../views/map", templateVars);
   });
 
   // Login A User
