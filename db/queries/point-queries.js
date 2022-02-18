@@ -47,7 +47,7 @@ const findPointsByMap = async(mapId) => {
     return res.status(500);
   }
 };
-exports.findPointsByUser = findPointsByUser;
+exports.findPointsByMap = findPointsByMap;
 
 
 // READ
