@@ -64,6 +64,8 @@ $(() => {
   // handler to remove current marker if cancel is clicked
   $('#myEditnav > form > input[value="cancel"').on('click', function() {
     currentMarkers.removeLayer(currentMarkerId)
+    $(this).siblings('input[type="hidden"]').val('');
+    $(this).siblings('input[type="text"]').val('');
   })
 
 });
