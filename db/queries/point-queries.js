@@ -34,6 +34,20 @@ const findPointsByUser = async(userId) => {
 };
 exports.findPointsByUser = findPointsByUser;
 
+const findPointsByMap = async(mapId) => {
+  try {
+    const query = {
+      text: 'SELECT * FROM points WHERE map_id = $1;',
+      values: [mapId],
+    };
+    const dbResponse = await db.query(query);
+    return dbResponse.rows;
+  } catch (error) {
+    console.log(chalk.redBright('ERROR in point-queries.js @ findPointsByMap:', chalk.whiteBright(error)));
+    return res.status(500);
+  }
+};
+exports.findPointsByUser = findPointsByUser;
 
 
 // READ
