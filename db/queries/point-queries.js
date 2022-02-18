@@ -36,7 +36,6 @@ exports.findPointsByUser = findPointsByUser;
 
 const findPointsByMap = async(mapId) => {
   try {
-    console.log('MAPID:', mapId)
     const query = {
       text: 'SELECT * FROM points WHERE map_id = $1;',
       values: [mapId],
@@ -52,13 +51,15 @@ exports.findPointsByMap = findPointsByMap;
 
 
 // READ
-const findPointById = async(mapId) => {
+const findPointById = async(pointId) => {
+  console.log('POINTY:', pointId)
   try {
     const query = {
       text: 'SELECT * FROM points WHERE id = $1;',
-      values: [mapId],
+      values: [pointId],
     };
     const dbResponse = await db.query(query);
+    console.log('RESPONSE', dbResponse)
     return dbResponse.rows;
   } catch (error) {
     console.log(chalk.redBright('ERROR in point-queries.js @ findPointById:', chalk.whiteBright(error)));
@@ -115,11 +116,12 @@ const updatePointImageURL = async(mapId, imageUrl) => {
 };
 exports.updatePointImageURL = updatePointImageURL;
 
-const updatePointLocation = async(mapId, latitude, longitude) => {
+const updatePointLocation = async(pointId, latitude, longitude) => {
   try {
+    console.log('MOVING LOCATIONS')
     const query = {
       text: 'UPDATE points SET latitude = $1, longitude = $2 WHERE id = $3 RETURNING *;',
-      values: [latitude, longitude, mapId],
+      values: [latitude, longitude, pointId],
     };
     const dbResponse = await db.query(query);
     return dbResponse.rows;

@@ -29,6 +29,9 @@ module.exports = (router, db) => {
 
   // Serve A Specific Map Page
   router.get("/map/:map_id", async (req,res) => {
+    if (req.params.map_id === 'map' || req.params.map_id === 'm' || !req.params.map_id) {
+      res.redirect('/map')
+    }
     const templateVars = {
       isLoggedIn: isLoggedIn(true),
       // Should Be parsed cookie

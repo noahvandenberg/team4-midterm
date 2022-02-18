@@ -27,49 +27,46 @@
   <script>
 
     // Sets Map and it's initial location
-    var map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
+    var map = L.map('map').setView([49.13068254312452, -123.14892282607158], 10);
 
     // Grabs titles (background images) for mapbox
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     minZoom: 5,
     maxZoom: 18,
-    zoom: 10,
     id: 'mapbox/streets-v11',
     tileSize: 512,
     zoomOffset: -1,
     accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
     }).addTo(map);
 
-    // Renders an Example Point
-    var marker = L.marker([49.13068254312452, -123.14892282607158]).addTo(map);
-    var marker1 = L.marker([48.13068254312452, -122.14892282607158]).addTo(map);
-
     // Grabs Map Id From URL
-
     const mapId = window.location.pathname.split("/").pop()
+    console.log(mapId)
 
     // A little rats nesty but who doesn't like friends at home :) Time 11:20 w/ > 6 Hrs of Sleep
-    if (typeof num1 == 'number') {
 
       $( document ).ready(function() {
+        console.log('HEY ASFDSA', mapId)
 
         // Calls api to get a list of points for that mapId
-        $.ajax({
-          "url": `/api/points/m/${mapId}`,
-          "method": "GET",
-        }).done(function (response) {
-
-          // For each point on the map create a marker
-          response.forEach(element => {
-            L.marker([element.latitude, element.longitude]).addTo(map);
+        if (mapId !== 'map' && mapId !== 'm') {
+          console.log('RENDERING MAP')
+          $.ajax({
+            "url": `/api/points/m/${mapId}`,
+            "method": "GET",
+          }).done(function (response) {
+            console.log('Hello')
+            // For each point on the map create a marker
+            response.forEach(element => {
+              L.marker([element.latitude, element.longitude]).addTo(map);
+            });
           });
-
-        });
+        }
 
       });
 
-    }
+
 
 
 
