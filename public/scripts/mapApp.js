@@ -107,6 +107,7 @@ const buildMarker = function(point) {
   const lng = point.longitude;
   const latlng = { lat, lng };
   const marker = L.marker(latlng)
+  marker.point_id = point.id;
 
   return marker;
 }
