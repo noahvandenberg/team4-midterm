@@ -25,6 +25,15 @@ $(() => {
   $('#myEditnav form').submit(function(event) {
     event.preventDefault();
 
+    // alert user if form is empty
+    if ($(this).children('input[name="title"]').val() === "" ||
+      $(this).children('input[name="description"]').val() === "" ||
+      $(this).children('input[name="image_url"]').val() === "") {
+
+      alert("Please enter point information.")
+      return;
+    }
+
     // build point object to send to database
     const creator_id = $(this).children('input[name="creator_id"]').val();
     const map_id = $(this).children('input[name="map_id"]').val();
