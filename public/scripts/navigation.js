@@ -3,6 +3,11 @@ $(() => {
   $.get(`/api/maps/${window.location.pathname.replace("/maps/", "")}`, (map) => {
     $.get(`/api/points/m/${map[0].id}`, (points) => {
       console.log(points.length);
+      let pointInfo = '';
+      let i = 0;
+      for (const point of points) {
+        console.log('-', pointInfo++);
+      }
     });
     renderMap(map[0].id);
   });
