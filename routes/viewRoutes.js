@@ -21,7 +21,7 @@ module.exports = (router, db) => {
   });
 
   // Serve A Specific Map Page
-  router.get("/maps:map_id", (req, res) => {
+  router.get("/maps/:map_id", (req, res) => {
     res.render("../views/map")
   });
 

@@ -1,7 +1,22 @@
 $(() => {
 
-  $.get(`/api/maps/${window.location.pathname.replace("/maps", "")}`, (data) => {
-    renderMap(data[0].id);
+  $.get(`/api/maps/${window.location.pathname.replace("/maps/", "")}`, (map) => {
+    $.get(`/api/points/m/${map[0].id}`, (points) => {
+      console.log(points.length);
+      let pointInfo = '';
+      for (const point of points) {
+        pointInfo += `
+        <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true" id="mapPoint">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+          <strong class="mb-1">${point.title}</strong>
+        </div>
+        <div class="col-10 mb-1 small">${point.description}</div>
+        </a>`;
+        console.log(point.title);
+        $('#mapPointsList').html(pointInfo);
+      }
+    });
+    renderMap(map[0].id);
   });
 
   $(document).on('click', '.mapName', (function() {
@@ -53,7 +68,7 @@ $(() => {
       image_url
     };
 
-    console.log(data)
+    console.log(data);
 
     $.ajax({
       method: "POST",
@@ -61,14 +76,14 @@ $(() => {
       timeout: 0,
       data
     }).done(function(res) {
-      console.log(res)
+      console.log(res);
       removeMap();
       removePoints();
       renderMap(res[0].map_id);
       $('#myEditnav form').attr("hidden", "");
     });
 
-  })
+  });
 
   // handler to remove current marker if cancel is clicked
   $('#myEditnav > form > input[value="cancel"').on('click', function() {
