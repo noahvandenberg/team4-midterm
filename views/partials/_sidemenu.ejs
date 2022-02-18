@@ -13,7 +13,12 @@
     <!-- add 'active' bootstrap class for current map -->
 
     <% for(let item in sideMenuItems) { %>
-      <a href="/map/<%= sideMenuItems[item].id %>" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
+
+      <% if (selectedMap) { %>
+        <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
+      <%} else { %>
+        <a href="/map/<%= sideMenuItems[item].id %>" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
+      <%} %>
         <div class="d-flex w-100 align-items-center justify-content-between">
           <strong class="mb-1"><%= sideMenuItems[item].title %></strong>
           <small>Wed</small>
