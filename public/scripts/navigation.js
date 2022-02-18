@@ -45,7 +45,7 @@ $(() => {
       $(this).children('input[name="description"]').val() === "" ||
       $(this).children('input[name="image_url"]').val() === "") {
 
-      alert("Please enter point information.")
+      alert("Please enter point information.");
       return;
     }
 
@@ -87,9 +87,9 @@ $(() => {
 
   // handler to remove current marker if cancel is clicked
   $('#myEditnav > form > input[value="cancel"').on('click', function() {
-    currentMarkers.removeLayer(currentMarkerId)
+    currentMarkers.removeLayer(currentMarkerId);
     $(this).siblings('input[type="hidden"]').val('');
     $(this).siblings('input[type="text"]').val('');
-  })
+  });
 
 });
