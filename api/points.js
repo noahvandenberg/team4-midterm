@@ -1,4 +1,4 @@
-const { allPoints, findPointById, findPointsByUser, updatePointTitle, updatePointDescription, updatePointImageURL, updatePointLocation, createPoint, deletePoint } = require('../db/queries/point-queries');
+const { allPoints, findPointById, findPointsByUser, updatePointTitle, updatePointDescription, updatePointImageURL, updatePointLocation, createPoint, deletePoint, findPointsByMap } = require('../db/queries/point-queries');
 const chalk = require('chalk');
 
 module.exports = (router) => {
@@ -14,9 +14,9 @@ module.exports = (router) => {
     }
   });
 
-  router.get('/u/:id', async(req, res) => {
+  router.get('/m/:id', async(req, res) => {
     try {
-      const dbResponse = await findPointsByUser(req.params.id);
+      const dbResponse = await findPointsByMap(req.params.id);
       if (dbResponse.length > 0) {
         res.json(dbResponse);
       } else {

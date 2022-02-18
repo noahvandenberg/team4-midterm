@@ -6,6 +6,7 @@
   <title>Home Page</title>
 
   <%- include('partials/_head') %>
+  <%- include('partials/_leaflet') %>
 
   <link rel="stylesheet" href="/styles/map.css" type="text/css" />
 
@@ -22,6 +23,54 @@
     <%- include('partials/_sidemenu') %>
 
   </main>
+
+  <script>
+
+    // Sets Map and it's initial location
+    var map = L.map('map').setView([49.13068254312452, -123.14892282607158], 13);
+
+    // Grabs titles (background images) for mapbox
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    minZoom: 5,
+    maxZoom: 18,
+    zoom: 10,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1Ijoibm9haHZhbmRlbmJlcmciLCJhIjoiY2t6ajRtazg2MGs5bjJwbnlveTFoN2cwaSJ9.fzC2TyqKFe8sidsYJlVzdQ'
+    }).addTo(map);
+
+    // Renders an Example Point
+    var marker = L.marker([49.13068254312452, -123.14892282607158]).addTo(map);
+    var marker1 = L.marker([48.13068254312452, -122.14892282607158]).addTo(map);
+
+    const mapId = window.location.pathname.split("/").pop()
+
+    $( document ).ready(function() {
+
+      console.log('DOCUMENT LOADED')
+
+      $.ajax({
+        "url": `/api/points/m/${mapId}`,
+        "method": "GET",
+      }).done(function (response) {
+
+        console.log('AJAX COMPLETE')
+        response.forEach(element => {
+          console.log(element)
+          L.marker([element.latitude, element.longitude]).addTo(map);
+        });
+
+      });
+
+    });
+
+
+    // console.log('LAYER', L)
+    // console.log('LAYER', map)
+
+  </script>
 
 </body>
 
