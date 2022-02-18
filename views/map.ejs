@@ -45,30 +45,25 @@
     var marker = L.marker([49.13068254312452, -123.14892282607158]).addTo(map);
     var marker1 = L.marker([48.13068254312452, -122.14892282607158]).addTo(map);
 
+    // Grabs Map Id From URL
     const mapId = window.location.pathname.split("/").pop()
 
     $( document ).ready(function() {
 
-      console.log('DOCUMENT LOADED')
-
+      // Calls api to get a list of points for that mapId
       $.ajax({
         "url": `/api/points/m/${mapId}`,
         "method": "GET",
       }).done(function (response) {
 
-        console.log('AJAX COMPLETE')
+        // For each point on the map create a marker
         response.forEach(element => {
-          console.log(element)
           L.marker([element.latitude, element.longitude]).addTo(map);
         });
 
       });
 
     });
-
-
-    // console.log('LAYER', L)
-    // console.log('LAYER', map)
 
   </script>
 
