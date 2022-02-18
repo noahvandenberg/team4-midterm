@@ -1,10 +1,10 @@
-const { allPoints, findPointById, findPointsByUser, updatePointTitle, updatePointDescription, updatePointImageURL, updatePointLocation, createPoint, deletePoint } = require('../db/queries/point-queries');
+const { allPoints, findPointById, findPointsByUser, findPointsByMap, updatePointTitle, updatePointDescription, updatePointImageURL, updatePointLocation, createPoint, deletePoint } = require('../db/queries/point-queries');
 const chalk = require('chalk');
 
 module.exports = (router) => {
 
   // BROWSE
-  router.get('/', async(req, res) => {
+  router.get('/', async (req, res) => {
     try {
       const dbResponse = await allPoints();
       res.json(dbResponse);
@@ -14,7 +14,7 @@ module.exports = (router) => {
     }
   });
 
-  router.get('/u/:id', async(req, res) => {
+  router.get('/u/:id', async (req, res) => {
     try {
       const dbResponse = await findPointsByUser(req.params.id);
       if (dbResponse.length > 0) {
@@ -29,10 +29,23 @@ module.exports = (router) => {
     }
   });
 
-
+  router.get('/m/:id', async (req, res) => {
+    try {
+      const dbResponse = await findPointsByMap(req.params.id);
+      if (dbResponse.length > 0) {
+        res.json(dbResponse);
+      } else {
+        res.json(dbResponse);
+        throw 'Map Does Not Exist';
+      }
+    } catch (error) {
+      console.log(chalk.redBright('ERROR in points.js @ GET \'/u/:id\':', chalk.whiteBright(error)));
+      return res.status(500);
+    }
+  });
 
   // READ
-  router.get('/:id', async(req, res) => {
+  router.get('/:id', async (req, res) => {
     try {
       const dbResponse = await findPointById(req.params.id);
       if (dbResponse.length > 0) {
@@ -50,7 +63,7 @@ module.exports = (router) => {
 
 
   // // EDIT
-  router.put('/:id', async(req, res) => {
+  router.put('/:id', async (req, res) => {
     try {
       const dbResponse = await findPointById(req.params.id);
       // console.log(req.body)
@@ -82,10 +95,10 @@ module.exports = (router) => {
 
 
   // ADD
-  router.post('/', async(req, res) => {
+  router.post('/', async (req, res) => {
     try {
       if (req.body.creator_id && req.body.title && req.body.description) {
-        const dbResponse = await createPoint(req.body.creator_id, req.body.map_id, req.body.title, req.body.description, req.body.latitude, req.body.longitude);
+        const dbResponse = await createPoint(req.body.creator_id, req.body.map_id, req.body.title, req.body.description, req.body.latitude, req.body.longitude, req.body.image_url);
         res.json(dbResponse);
       } else {
         res.json();
@@ -100,7 +113,7 @@ module.exports = (router) => {
 
 
   // DELETE
-  router.delete('/:id', async(req, res) => {
+  router.delete('/:id', async (req, res) => {
     try {
       const dbResponse = await findPointById(req.params.id);
       if (dbResponse.length > 0) {
