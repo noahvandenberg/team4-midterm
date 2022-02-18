@@ -1,6 +1,9 @@
 $(() => {
 
   $.get(`/api/maps/${window.location.pathname.replace("/maps/", "")}`, (map) => {
+    $.get(`/api/points/m/${map[0].id}`, (points) => {
+      console.log(points.length);
+    });
     renderMap(map[0].id);
   });
 
