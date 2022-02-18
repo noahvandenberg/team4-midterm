@@ -81,6 +81,7 @@ module.exports = (router) => {
   // ADD
   router.post('/', async(req, res) => {
     try {
+      console.log(req.body)
       if (req.body.creator_id && req.body.title && req.body.description) {
         const dbResponse = await createMap(req.body.creator_id, req.body.title, req.body.description, req.body.imageURL);
         res.json(dbResponse);

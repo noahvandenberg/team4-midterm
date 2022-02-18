@@ -10,10 +10,59 @@
   </a>
   <div class="list-group list-group-flush border-bottom scrollarea">
 
-    <!-- add 'active' bootstrap class for current map -->
+
+
+    <% if (selectedMap) { %>
+
+      <!--  CREATE MENU FOR POINTS -->
+      <div href="" class="list-group-item list-group-item py-3 lh-tight" aria-current="true">
+        <form class="p-1 p-md-5 border rounded-3 bg-light" action="/api/points" method="POST">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="title" >
+            <label for="floatingInput">Title</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="description" >
+            <label for="floatingPassword">Description</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingInput" name="latitude" >
+            <label for="floatingPassword">Latitude</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="floatingInput" name="longitude" >
+            <label for="floatingPassword">Longitude</label>
+          </div>
+          <!-- <%= userObj.id %> -->
+          <input type="hidden" name="creator_id" value="<%= userObj[0].id %>">
+          <!-- <%= selectedMap.id %> -->
+          <input type="hidden" name="map_id" value="<%= selectedMap[0].id %>">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Create Point</button>
+        </form>
+      </div>
+
+    <%} else { %>
+
+      <!--  CREATE MENU FOR MAPS -->
+      <div href="" class="list-group-item py-3 lh-tight" aria-current="true">
+        <form class="p-1 p-md-5 border rounded-3 bg-light" action="/api/maps" method="POST">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="title">
+            <label for="floatingInput">Title</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="description">
+            <label for="floatingPassword">Description</label>
+          </div>
+          <!-- <%= userObj.id %> -->
+          <input type="hidden" name="creator_id" value="<%= userObj[0].id %>">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Create Map</button>
+        </form>
+      </div>
+
+    <%} %>
 
     <% for(let item in sideMenuItems) { %>
-
       <% if (selectedMap) { %>
         <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
       <%} else { %>
@@ -21,7 +70,8 @@
       <%} %>
         <div class="d-flex w-100 align-items-center justify-content-between">
           <strong class="mb-1"><%= sideMenuItems[item].title %></strong>
-          <small>Wed</small>
+          <!-- Make Delete Button -->
+          <small>x</small>
         </div>
         <div class="col-10 mb-1 small"><%= sideMenuItems[item].description %></div>
       </a>

@@ -22,7 +22,7 @@ module.exports = (router, db) => {
       // Should Be parsed cookie
       userObj: await findUserById(10),
       selectedMap: false,
-      sideMenuItems: randomSelection(await allMaps(), 20)
+      sideMenuItems: await findMapsByUser(10)
     }
     console.log(templateVars)
     res.render("../views/map", templateVars);
