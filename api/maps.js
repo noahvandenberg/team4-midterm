@@ -4,7 +4,7 @@ const chalk = require('chalk');
 module.exports = (router) => {
 
   // BROWSE
-  router.get('/', async(req, res) => {
+  router.get('/', async (req, res) => {
     try {
       const dbResponse = await allMaps();
       res.json(dbResponse);
@@ -14,7 +14,7 @@ module.exports = (router) => {
     }
   });
 
-  router.get('/u/:id', async(req, res) => {
+  router.get('/u/:id', async (req, res) => {
     try {
       const dbResponse = await findMapsByUser(req.params.id);
       if (dbResponse.length > 0) {
@@ -32,7 +32,7 @@ module.exports = (router) => {
 
 
   // READ
-  router.get('/:id', async(req, res) => {
+  router.get('/:id', async (req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       if (dbResponse.length > 0) {
@@ -50,7 +50,7 @@ module.exports = (router) => {
 
 
   // // EDIT
-  router.put('/:id', async(req, res) => {
+  router.put('/:id', async (req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       // console.log(req.body)
@@ -79,7 +79,7 @@ module.exports = (router) => {
 
 
   // ADD
-  router.post('/', async(req, res) => {
+  router.post('/', async (req, res) => {
     try {
       if (req.body.creator_id && req.body.title && req.body.description) {
         const dbResponse = await createMap(req.body.creator_id, req.body.title, req.body.description, req.body.imageURL);
@@ -97,7 +97,7 @@ module.exports = (router) => {
 
 
   // DELETE
-  router.delete('/:id', async(req, res) => {
+  router.delete('/:id', async (req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       if (dbResponse.length > 0) {
