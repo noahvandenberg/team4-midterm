@@ -90,6 +90,16 @@ $(() => {
     currentMarkers.removeLayer(currentMarkerId)
     $(this).siblings('input[type="hidden"]').val('');
     $(this).siblings('input[type="text"]').val('');
-  })
+  });
 
+  $('#myEditnav').on('click', 'input[type="button"][name]', function() {
+    const pointId = $(this).attr("name");
+    $.ajax({
+      "url": `/api/points/${pointId}`,
+      "method": "GET",
+      "timeout": 0,
+    }).done(function(res) {
+      addPointToEditForm(res[0]);
+    })
+  });
 });
