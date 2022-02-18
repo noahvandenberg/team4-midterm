@@ -113,12 +113,12 @@ module.exports = (router) => {
 
 
   // DELETE
-  router.delete('/:id', async(req, res) => {
+  router.post('/delete/:id', async(req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
       if (dbResponse.length > 0) {
         const deleteResponse = await deleteMap(req.params.id);
-        res.json(deleteResponse);
+        res.redirect('/map')
       } else {
         res.json(dbResponse);
         throw 'Map Does Not Exist';

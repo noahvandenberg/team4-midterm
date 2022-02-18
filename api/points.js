@@ -100,18 +100,19 @@ module.exports = (router) => {
 
 
   // DELETE
-  router.delete('/:id', async(req, res) => {
+  router.post('/delete/:id', async(req, res) => {
     try {
       const dbResponse = await findPointById(req.params.id);
       if (dbResponse.length > 0) {
         const deleteResponse = await deletePoint(req.params.id);
-        res.json(deleteResponse);
+        console.log(req.body)
+        res.redirect(`/map/${req.body.map_id}`);
       } else {
         res.json(dbResponse);
-        throw 'Map Does Not Exist';
+        throw 'Point Does Not Exist';
       }
     } catch (error) {
-      console.log(chalk.redBright('ERROR in points.js @ DELETE \'/:id\':', chalk.whiteBright(error)));
+      console.log(chalk.redBright('ERROR in points.js @ GET \'/delete/:id\':', chalk.whiteBright(error)));
       return res.status(500);
     }
   });

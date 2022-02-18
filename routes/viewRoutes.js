@@ -24,7 +24,6 @@ module.exports = (router, db) => {
       selectedMap: false,
       sideMenuItems: await findMapsByUser(10)
     }
-    console.log(templateVars)
     res.render("../views/map", templateVars);
   });
 
@@ -37,7 +36,6 @@ module.exports = (router, db) => {
       selectedMap: await findMapById(req.params.map_id),
       sideMenuItems: await findPointsByMap(req.params.map_id)
     }
-    console.log(templateVars)
     res.render("../views/map", templateVars);
   });
 
@@ -51,7 +49,6 @@ module.exports = (router, db) => {
       maps: await findMapsByUser(10),
       favourites: await findMapsByUser(10)
     }
-    console.log(templateVars)
     res.render("../views/profile", templateVars);
   });
 
