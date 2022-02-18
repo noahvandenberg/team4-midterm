@@ -12,15 +12,16 @@ let currentMarkerId;
 const renderMap = function(mapId) {
   return $.ajax({
     method: "GET",
-    url: `/points/${mapId}`
+    url: `/api/points/m/${mapId}`
   }).then((data) => {
+    console.log(data);
     // Create map
     const map = L.map('map');
 
     // create layer group to hold markers
     const markers = L.featureGroup().addTo(map);
     // go through points and add them to the map
-    data.points.forEach((point) => {
+    data.forEach((point) => {
       const marker = buildMarker(point);
       marker.bindPopup(buildPopup(point));
 
@@ -145,7 +146,7 @@ const buildMapTiles = function() {
 const removeMap = function() {
   $('#map').remove();
   const $newMap = $('<section>').attr("id", "map")
-  $('body').append($newMap);
+  $('main').append($newMap);
 };
 
 // helper function to clear sidebar points
