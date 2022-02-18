@@ -1,4 +1,4 @@
-const { allMaps, findMapsByUser, findMapById, updateMapTitle, updateMapDescription, createMap, deleteMap, updateMapImageUrl } = require('../db/queries/map-queries');
+const { allMaps, findMapsByUser, findMapById, updateMapTitle, updateMapDescription, createMap, deleteMap, updateMapImageUrl, createFavouriteMap } = require('../db/queries/map-queries');
 const chalk = require('chalk');
 
 module.exports = (router) => {
@@ -83,6 +83,21 @@ module.exports = (router) => {
     try {
       if (req.body.creator_id && req.body.title && req.body.description) {
         const dbResponse = await createMap(req.body.creator_id, req.body.title, req.body.description, req.body.imageURL);
+        res.json(dbResponse);
+      } else {
+        res.json();
+        throw 'Missing Required Parameter';
+      }
+    } catch (error) {
+      console.log(chalk.redBright('ERROR in maps.js @ POST \'/\':', chalk.whiteBright(error)));
+      return res.status(500);
+    }
+  });
+
+  router.post('/favourite', async(req, res) => {
+    try {
+      if (req.body.user_id && req.body.map_id) {
+        const dbResponse = await createFavouriteMap(req.body.user_id, req.body.map_id);
         res.json(dbResponse);
       } else {
         res.json();

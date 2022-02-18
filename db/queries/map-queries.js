@@ -133,6 +133,21 @@ const createMap = async(userId,title,description, imageURL) => {
 };
 exports.createMap = createMap;
 
+const createFavouriteMap = async(userId,mapId) => {
+  try {
+    const query = {
+      text: 'INSERT INTO maps_favourites (user_id, map_id) VALUES ($1, $2) RETURNING *;',
+      values: [userId, mapId],
+    };
+    const dbResponse = await db.query(query);
+    return dbResponse.rows;
+  } catch (error) {
+    console.log(chalk.redBright('ERROR in map-queries.js @ createMap:', chalk.whiteBright(error)));
+    return res.status(500);
+  }
+};
+exports.createFavouriteMap = createFavouriteMap;
+
 
 
 // DELETE
