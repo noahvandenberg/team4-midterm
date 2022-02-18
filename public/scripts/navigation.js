@@ -4,9 +4,17 @@ $(() => {
     $.get(`/api/points/m/${map[0].id}`, (points) => {
       console.log(points.length);
       let pointInfo = '';
-      let i = 0;
       for (const point of points) {
-        console.log('-', pointInfo++);
+        pointInfo += `
+        <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true" id="mapPoint">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+          <strong class="mb-1">${point.title}</strong>
+          <small>${Date.prototype.getDay(point.time_created)}</small>
+        </div>
+        <div class="col-10 mb-1 small">${point.description}</div>
+        </a>`;
+        console.log(point.title);
+        $('#mapPointsList').html(pointInfo);
       }
     });
     renderMap(map[0].id);
@@ -52,7 +60,7 @@ $(() => {
       image_url
     };
 
-    console.log(data)
+    console.log(data);
 
     $.ajax({
       method: "POST",
@@ -60,18 +68,17 @@ $(() => {
       timeout: 0,
       data
     }).done(function(res) {
-      console.log(res)
+      console.log(res);
       removeMap();
       removePoints();
       renderMap(res[0].map_id);
       $('#myEditnav form').attr("hidden", "");
     });
 
-  })
+  });
 
   // handler to
   $('#myEditnav > form > input[value="cancel"').on('click', function() {
-    currentMarkers.removeLayer(currentMarkerId)
-  })
-
+    currentMarkers.removeLayer(currentMarkerId);
+  });
 });
