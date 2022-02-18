@@ -19,9 +19,6 @@ const allMaps = async() => {
 };
 exports.allMaps = allMaps;
 
-
-
-// READ
 const findMapsByUser = async(userId) => {
   try {
     const query = {
@@ -37,6 +34,24 @@ const findMapsByUser = async(userId) => {
 };
 exports.findMapsByUser = findMapsByUser;
 
+const findFavouriteMapsByUser = async(userId) => {
+  try {
+    const query = {
+      text: 'SELECT maps.* FROM maps JOIN maps_favourites ON maps.id = maps_favourites.map_id WHERE maps_favourites.user_id = 10;',
+      values: [userId],
+    };
+    const dbResponse = await db.query(query);
+    return dbResponse.rows;
+  } catch (error) {
+    console.log(chalk.redBright('ERROR in map-queries.js @ findMapsByUser:', chalk.whiteBright(error)));
+    return res.status(500);
+  }
+};
+exports.findFavouriteMapsByUser = findFavouriteMapsByUser;
+
+
+
+// READ
 const findMapById = async(mapId) => {
   try {
     const query = {

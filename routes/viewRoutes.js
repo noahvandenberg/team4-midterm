@@ -48,7 +48,8 @@ module.exports = (router, db) => {
       // Should Be parsed cookie
       userObj: await findUserById(10),
       selectedMap: false,
-      maps: await findMapsByUser(10)
+      maps: await findMapsByUser(10),
+      favourites: await findMapsByUser(10)
     }
     console.log(templateVars)
     res.render("../views/profile", templateVars);
