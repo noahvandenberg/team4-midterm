@@ -1,6 +1,6 @@
 $(() => {
 
-  $.get(`/api/maps/${window.location.pathname.replace("/maps", "")}`, (data) => {
+  $.get(`/api/maps/${window.location.pathname.replace("/maps/", "")}`, (data) => {
     renderMap(data[0].id);
   });
 
