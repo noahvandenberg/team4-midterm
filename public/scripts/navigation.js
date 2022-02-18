@@ -9,7 +9,6 @@ $(() => {
         <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true" id="mapPoint">
         <div class="d-flex w-100 align-items-center justify-content-between">
           <strong class="mb-1">${point.title}</strong>
-          <small>${Date.prototype.getDay(point.time_created)}</small>
         </div>
         <div class="col-10 mb-1 small">${point.description}</div>
         </a>`;
