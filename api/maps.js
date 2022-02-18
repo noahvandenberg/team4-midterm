@@ -50,6 +50,21 @@ module.exports = (router) => {
 
 
   // // EDIT
+  router.post('/favourite', async(req, res) => {
+    try {
+      if (req.body.user_id && req.body.map_id) {
+        const dbResponse = await createFavouriteMap(req.body.user_id, req.body.map_id);
+        res.redirect('/map')
+      } else {
+        res.json();
+        throw 'Missing Required Parameter';
+      }
+    } catch (error) {
+      console.log(chalk.redBright('ERROR in maps.js @ POST \'/\':', chalk.whiteBright(error)));
+      return res.status(500);
+    }
+  });
+
   router.post('/:id', async(req, res) => {
     try {
       const dbResponse = await findMapById(req.params.id);
@@ -93,20 +108,7 @@ module.exports = (router) => {
     }
   });
 
-  router.post('/favourite', async(req, res) => {
-    try {
-      if (req.body.user_id && req.body.map_id) {
-        const dbResponse = await createFavouriteMap(req.body.user_id, req.body.map_id);
-        res.status(200)
-      } else {
-        res.json();
-        throw 'Missing Required Parameter';
-      }
-    } catch (error) {
-      console.log(chalk.redBright('ERROR in maps.js @ POST \'/\':', chalk.whiteBright(error)));
-      return res.status(500);
-    }
-  });
+
 
 
 

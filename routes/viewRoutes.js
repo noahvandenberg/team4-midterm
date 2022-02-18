@@ -1,6 +1,6 @@
 const { allPoints, findPointById, findPointsByMap } = require('../db/queries/point-queries')
 const { allUsers, findUserById } = require('../db/queries/user-queries')
-const { allMaps, findMapById, findMapsByUser} = require('../db/queries/map-queries')
+const { allMaps, findMapById, findMapsByUser, findFavouriteMapsByUser} = require('../db/queries/map-queries')
 const { randomSelection, isLoggedIn } = require('../helpers/helpers')
 
 
@@ -47,8 +47,9 @@ module.exports = (router, db) => {
       userObj: await findUserById(11),
       selectedMap: false,
       maps: await findMapsByUser(11),
-      favourites: await findMapsByUser(11)
+      favourites: await findFavouriteMapsByUser(11)
     }
+    console.log(templateVars)
     res.render("../views/profile", templateVars);
   });
 

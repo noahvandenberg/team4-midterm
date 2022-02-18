@@ -37,7 +37,7 @@ exports.findMapsByUser = findMapsByUser;
 const findFavouriteMapsByUser = async(userId) => {
   try {
     const query = {
-      text: 'SELECT maps.* FROM maps JOIN maps_favourites ON maps.id = maps_favourites.map_id WHERE maps_favourites.user_id = 10;',
+      text: 'SELECT maps.* FROM maps JOIN maps_favourites ON maps.id = maps_favourites.map_id WHERE maps_favourites.user_id = $1;',
       values: [userId],
     };
     const dbResponse = await db.query(query);
